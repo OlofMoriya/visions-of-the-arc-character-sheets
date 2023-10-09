@@ -70,10 +70,11 @@ const user = reactive({
     load10: ref(parsedUser.load10),
     coin: ref(parsedUser.coin),
     stash: ref(parsedUser.stash),
+    specialArmoutToggle: ref(parsedUser.specialArmourToggle),
     });
 
 watchEffect(()=>{
-    console.log('saving', user.name, user.class, user.crew, user.cover, user.looks, user.heritage, user.vice, user.deduce, user.sense, user.locate, user.appraise, user.control, user.finess, user.prowl, user.wreck, user.captivate, user.command, user.convince, user.feign, user.humility, user.ambition, user.honesty, user.creativity, user.justice, user.mercy, user.dignity, user.tolerance, user.bravery, user.caution, user.curiosity, user.loyalty, user.stress, user.mentalXp, user.physicalXp, user.senseXp, user.struggleOrExpress, user.heal, user.heal, user.trauma, user.harm3, user.harm21, user.harm22, user.harm11, user.harm12, user.specialSkills, user.specialItems, user.loadLevel, user.load1, user.load2, user.load3, user.load4, user.load5, user.load6, user.load7, user.load8, user.load9, user.load10, user.coin, user.stash, user.specialArmour, user.crafting);
+    console.log('saving', user.name, user.class, user.crew, user.cover, user.looks, user.heritage, user.vice, user.deduce, user.sense, user.locate, user.appraise, user.control, user.finess, user.prowl, user.wreck, user.captivate, user.command, user.convince, user.feign, user.humility, user.ambition, user.honesty, user.creativity, user.justice, user.mercy, user.dignity, user.tolerance, user.bravery, user.caution, user.curiosity, user.loyalty, user.stress, user.mentalXp, user.physicalXp, user.senseXp, user.struggleOrExpress, user.heal, user.heal, user.trauma, user.harm3, user.harm21, user.harm22, user.harm11, user.harm12, user.specialSkills, user.specialItems, user.loadLevel, user.load1, user.load2, user.load3, user.load4, user.load5, user.load6, user.load7, user.load8, user.load9, user.load10, user.coin, user.stash, user.specialArmour, user.crafting, user.specialArmoutToggle);
 
     localStorage.setItem("user", JSON.stringify(user));
 });
@@ -109,7 +110,7 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
         <div class="flex flex-col">
             <div class="my-4 mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600">
                 <input class="h-8 dark:bg-neutral-700 p-2 text-center m-2" placeholder="Cover" :value="user.cover" @input="e => user.cover = e.target.value"/> 
-                <input class="h-8 dark:bg-neutral-700 p-2 text-center m-2" placeholder="Looks" :value="user.looks" @input="e => user.looks = e.target.value"/> 
+                <textarea rows="3" class="dark:bg-neutral-700 p-2 text-center m-2" placeholder="Looks" :value="user.looks" @input="e => user.looks = e.target.value"/> 
                 <input class="h-8 dark:bg-neutral-700 p-2 text-center m-2" placeholder="Heritage" :value="user.heritage" @input="e => user.heritage = e.target.value"/> 
                 <input class="h-8 dark:bg-neutral-700 p-2 text-center m-2" placeholder="Vice" :value="user.vice" @input="e => user.vice = e.target.value"/> 
             </div> 
@@ -235,7 +236,7 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
         <div class="flex flex-col">
             <div class="my-4 mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 p-2">
 
-                <div class="w-full">Special armour</div> 
+                <GenericLevel title="Special armour" :maxLevel="1" :longTitle="true" :level="user.specialArmourToggle" :setLevel="(l) => user.specialArmourToggle = l"/>
                 <input class="w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="user.specialArmour" placeholder="" @input="e => user.specialArmour = e.target.value"/> 
                 <div class="w-full mt-2">Special abilities</div> 
                 <textarea class="w-full dark:bg-neutral-700 p-2 text-center" rows="3" :value="user.specialSkills" placeholder="" @input="e => user.specialSkills = e.target.value"/> 
