@@ -205,7 +205,7 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
                     <Skill title="Command" :level="user.command" :setLevel="(l) => {user.command = l}" />
                 </div>
                 <div class="mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
-                    <Skill title="Convince" :level="user.convince" :setLevel="(l) => {user.convice = l}" />
+                    <Skill title="Convince" :level="user.convince" :setLevel="(l) => {user.convince = l}" />
                 </div>
                 <div class="mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
                     <Skill title="Feign" :level="user.feign" :setLevel="(l) => {user.feign = l}" />
