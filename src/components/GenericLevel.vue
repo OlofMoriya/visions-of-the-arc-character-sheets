@@ -16,7 +16,7 @@ const setLevel = (level:number) => {
 </script>
 
 <template>
-    <div class="grid-cols-6 grid-cols-10 grid-cols-12"/>
+    <div class="grid-cols-1 grid-cols-2 grid-cols-4 grid-cols-6 grid-cols-10 grid-cols-12"/>
     <div class="flex justify-between gap-4 py-1 align-center items-center">
         <div :class="{['w-20'] : !longTitle}">{{title}}</div>
         <div class="grid gap-1" :class="{[`grid-cols-${breakAt ?? maxLevel}`]: true}">
