@@ -7,12 +7,12 @@ const props = defineProps<{
     setLevel: Function,
 }>()
 const setLevel = (level:number) => {
+console.log('set heal', level);
         props.setLevel(level);
 };
 </script>
 
 <template>
-    <div class="grid-cols-6 grid-cols-10 grid-cols-12"/>
     <div class="mx-2 flex justify-between gap-4 p-1 align-center items-center">
         <div class=" min-w-[38px] grid grid-cols-2 gap-0.5" >
             <div 

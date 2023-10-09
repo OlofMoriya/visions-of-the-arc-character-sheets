@@ -44,9 +44,9 @@ const user = reactive({
     stress: ref(parsedUser.stress),
     mentalXp: ref(parsedUser.mentalXp),
     physicalXp: ref(parsedUser.physicalXp),
-    senseXp: ref(parsedUser.senseXp),
+    socialXp: ref(parsedUser.socialXp),
     struggleOrExpress: ref(parsedUser.struggleOrExpress),
-    heal: ref(parsedUser.head),
+    heal: ref(parsedUser.heal),
     trauma: ref(parsedUser.trauma),
     harm3: ref(parsedUser.harm3),
     harm21: ref(parsedUser.harm21),
@@ -70,11 +70,11 @@ const user = reactive({
     load0: ref(parsedUser.load0),
     coin: ref(parsedUser.coin),
     stash: ref(parsedUser.stash),
-    specialArmoutToggle: ref(parsedUser.specialArmourToggle),
+    specialArmourToggle: ref(parsedUser.specialArmourToggle),
     });
 
 watchEffect(()=>{
-    console.log('saving', user.name, user.class, user.crew, user.cover, user.looks, user.heritage, user.vice, user.deduce, user.sense, user.locate, user.appraise, user.control, user.finess, user.prowl, user.wreck, user.captivate, user.command, user.convince, user.feign, user.humility, user.ambition, user.honesty, user.creativity, user.justice, user.mercy, user.dignity, user.tolerance, user.bravery, user.caution, user.curiosity, user.loyalty, user.stress, user.mentalXp, user.physicalXp, user.senseXp, user.struggleOrExpress, user.heal, user.heal, user.trauma, user.harm3, user.harm21, user.harm22, user.harm11, user.harm12, user.specialSkills, user.specialItems, user.loadLevel, user.load1, user.load2, user.load3, user.load4, user.load5, user.load6, user.load7, user.load8, user.load9, user.load0, user.coin, user.stash, user.specialArmour, user.crafting, user.specialArmoutToggle);
+    console.log('saving', user.name, user.class, user.crew, user.cover, user.looks, user.heritage, user.vice, user.deduce, user.sense, user.locate, user.appraise, user.control, user.finess, user.prowl, user.wreck, user.captivate, user.command, user.convince, user.feign, user.humility, user.ambition, user.honesty, user.creativity, user.justice, user.mercy, user.dignity, user.tolerance, user.bravery, user.caution, user.curiosity, user.loyalty, user.stress, user.mentalXp, user.physicalXp, user.socialXp, user.struggleOrExpress, user.heal, user.heal, user.trauma, user.harm3, user.harm21, user.harm22, user.harm11, user.harm12, user.specialSkills, user.specialItems, user.loadLevel, user.load1, user.load2, user.load3, user.load4, user.load5, user.load6, user.load7, user.load8, user.load9, user.load0, user.coin, user.stash, user.specialArmour, user.crafting, user.specialArmourToggle);
 
     localStorage.setItem("user", JSON.stringify(user));
 });
@@ -151,10 +151,10 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
                               <input class="w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="user.harm22" placeholder="2" @input="e => user.harm22 = e.target.value"/> 
                         </div>
                         <div class="">
-                              <input class="h-8 w-full dark:bg-neutral-700 p-2 text-center"  :value="user.harm31" placeholder="1" @input="e => user.harm31 = e.target.value"/> 
+                              <input class="h-8 w-full dark:bg-neutral-700 p-2 text-center"  :value="user.harm11" placeholder="1" @input="e => user.harm11 = e.target.value"/> 
                         </div>
                         <div class="">
-                              <input class="w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="user.harm32" placeholder="1" @input="e => user.harm32 = e.target.value"/> 
+                              <input class="w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="user.harm12" placeholder="1" @input="e => user.harm12 = e.target.value"/> 
                         </div>
                     </div>
                 </div>
@@ -217,7 +217,7 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
                 <GenericLevel :level="user.physicalXp" :setLevel="(l) => user.physicalXp = l" :maxLevel="6" title="Physical"/>
                 <GenericLevel :level="user.mentalXp" :setLevel="(l) => user.mentalXp = l" :maxLevel="6" title="Mental"/>
                 <GenericLevel :level="user.socialXp" :setLevel="(l) => user.socialXp = l" :maxLevel="6" title="Social"/>
-                <GenericLevel :level="user.struggleOrExpressXp" :setLevel="(l) => user.struggleOrExpressXp = l" :maxLevel="12" title="Struggle or Express" :breakAt="6"/>
+                <GenericLevel :level="user.struggleOrExpress" :setLevel="(l) => user.struggleOrExpress = l" :maxLevel="12" title="Struggle or Express" :breakAt="6"/>
 
             </div>
             <div class="my-1 mx-2 flex justify-center gap-2 dark:border-neutral-400 border border-neutral-600 p-1">
