@@ -25,19 +25,19 @@ const setLevel = (level:number) => {
         <div class="flex gap-1">
             <div class="cursor-pointer w-4 h-4 m-1 border border-neutral-500 rounded-sm" 
                     :class="{ ['bg-amber-600'] : first}"
-                    :onClick="()=>first ? setLevel(0) : setLevel(1)"
+                    :onClick="()=>props.level == 1 ? setLevel(0) : setLevel(1)"
             />
             <div class="cursor-pointer w-4 h-4 m-1 border border-neutral-500 rounded-sm" 
                     :class="{ ['bg-amber-500'] : second}"
-                    :onClick="()=>second ? setLevel(1) : setLevel(2)"
+                    :onClick="()=>props.level == 2 ? setLevel(1) : setLevel(2)"
             />
             <div class="cursor-pointer w-4 h-4 m-1 border border-neutral-500 rounded-sm" 
                     :class="{ ['bg-amber-400'] : third}"
-                    :onClick="()=>third ? setLevel(2) : setLevel(3)"
+                    :onClick="()=>props.level == 3 ? setLevel(2) : setLevel(3)"
             />
             <div class="cursor-pointer w-4 h-4 m-1 border border-neutral-500 rounded-sm" 
                     :class="{ ['bg-amber-300'] : forth}"
-                    :onClick="()=>forth ? setLevel(3) : setLevel(4)"
+                    :onClick="()=>props.level == 4 ? setLevel(3) : setLevel(4)"
             />
             </div>
     </div>

@@ -90,10 +90,10 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
 </script>
 
 <template>
-  <main class="dark:bg-neutral-900 rounded-sm bg-neutral-100 pt-20">
+  <main class="dark:bg-neutral-900 dark:text-neutral-200 rounded-sm bg-neutral-50 pt-20 h-full">
   <div class="w-full flex justify-center">
       <div class="flex justify-center dark:border-neutral-400 border-y-1 border-x-0 border border-neutral-600 my-4 w-3/4">
-          <input class="h-8 dark:bg-neutral-700 p-2 text-center" :value="user.name" placeholder="name"/>
+          <input class="h-8 dark:bg-neutral-700 p-2 text-center w-80" :value="user.name" placeholder="name"/>
       </div>
       </div>
       <div class="flex justify-center">
@@ -105,7 +105,7 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
               <input class="h-8 dark:bg-neutral-700 p-2 text-center"  :value="user.crew" placeholder="Crew" @input="e => user.crew = e.target.value"/> 
           </div>
       </div>
-      <div class="flex justify-evenly">
+      <div class="grid grid-cols-2 lg:grid-cols-3">
         <div class="flex flex-col">
             <div class="my-4 mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600">
                 <input class="h-8 dark:bg-neutral-700 p-2 text-center m-2" placeholder="Cover" :value="user.cover" @input="e => user.cover = e.target.value"/> 
@@ -123,7 +123,7 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
                <Virtue titleLeft="Curiosity" :levelLeft="user.curiosity" :setLevelLeft="(l) => user.curiosity = l" titleRight="Loyalty" :levelRight="user.loyalty" :setLevelRight="(l) => user.loyalty = l"/>
             </div>
 
-            <div class="my-4 mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600">
+            <div class="my-4 mx-2 p-2 flex flex-col dark:border-neutral-400 border border-neutral-600">
                 <div class="flex">
                     <div class="flex flex-col">
                         <GenericLevel title="Stress" :level="user.stress" :maxLevel="10" :setLevel="(l) => user.stress = l"/>
@@ -138,7 +138,7 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
                 <div class="flex flex-col items-center">
                     <div class="font-bold border-b-1 border-b text-center w-4/5 border-neutral-300">Harm</div>
 
-                    <div class="mt-2 gap-1 grid grid-cols-2 p-1">
+                    <div class="mt-2 gap-1 grid grid-cols-2">
                         <div class="col-span-2">
                               <input class="h-8 w-full dark:bg-neutral-700 p-2 text-center"  :value="user.harm3" placeholder="3" @input="e => user.harm3 = e.target.value"/> 
                         </div>
@@ -162,7 +162,7 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
             </div>
         </div>
         <div class="flex flex-col">
-            <div class="my-4 mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 p-2">
+            <div class="flex flex-col mt-4">
 
                 <div class="mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 dark:bg-neutral-100 bg-neutral-800 dark:text-neutral-800 text-neutral-200">
                     <Skill title="Mental" :level="mental" :computedLevel="true"/>
@@ -219,7 +219,7 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
                 <GenericLevel :level="user.struggleOrExpressXp" :setLevel="(l) => user.struggleOrExpressXp = l" :maxLevel="12" title="Struggle or Express" :breakAt="6"/>
 
             </div>
-            <div class="my-4 mx-2 flex dark:border-neutral-400 border border-neutral-600 p-1">
+            <div class="my-4 mx-2 flex justify-center gap-2 dark:border-neutral-400 border border-neutral-600 p-1">
                         <div class="flex flex-col">
                                 <div class="text-center">Coin</div>
                               <input class="h-8 w-full dark:bg-neutral-700 p-2 text-center"  :value="user.coin" placeholder="0" @input="e => user.coin = e.target.value"/> 
@@ -233,19 +233,19 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
         </div>
 
         <div class="flex flex-col">
-            <div class="my-4 mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600">
+            <div class="my-4 mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 p-2">
 
                 <div class="w-full">Special armour</div> 
                 <input class="w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="user.specialArmour" placeholder="" @input="e => user.specialArmour = e.target.value"/> 
-                <div class="w-full">Special abilities</div> 
-                <textarea class="w-full h-8 dark:bg-neutral-700 p-2 text-center" rows="3" :value="user.specialSkills" placeholder="" @input="e => user.specialSkills = e.target.value"/> 
-                <div class="w-full">Special items</div> 
-                <textarea rows="3" class="w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="user.specialItems" placeholder="" @input="e => user.specialItems = e.target.value"/> 
-                <div class="w-full">Craft</div> 
+                <div class="w-full mt-2">Special abilities</div> 
+                <textarea class="w-full dark:bg-neutral-700 p-2 text-center" rows="3" :value="user.specialSkills" placeholder="" @input="e => user.specialSkills = e.target.value"/> 
+                <div class="w-full mt-2">Special items</div> 
+                <textarea rows="3" class="w-full dark:bg-neutral-700 p-2 text-center"  :value="user.specialItems" placeholder="" @input="e => user.specialItems = e.target.value"/> 
+                <div class="w-full mt-2">Craft</div> 
                 <input class="w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="user.crafting" placeholder="" @input="e => user.crafting = e.target.value"/> 
 
             </div>
-            <div class="my-4 mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600">
+            <div class="my-4 mx-2 flex p-2 flex-col dark:border-neutral-400 border border-neutral-600">
                 <GenericLevel :level="user.loadLevel" :setLevel="(l) => user.loadLevel = l" title="Loadout" :maxLevel="4"/>
 
                 <div class="p-1 gap-1 grid col-span-2">
