@@ -67,14 +67,14 @@ const user = reactive({
     load7: ref(parsedUser.load7),
     load8: ref(parsedUser.load8),
     load9: ref(parsedUser.load9),
-    load10: ref(parsedUser.load10),
+    load0: ref(parsedUser.load0),
     coin: ref(parsedUser.coin),
     stash: ref(parsedUser.stash),
     specialArmoutToggle: ref(parsedUser.specialArmourToggle),
     });
 
 watchEffect(()=>{
-    console.log('saving', user.name, user.class, user.crew, user.cover, user.looks, user.heritage, user.vice, user.deduce, user.sense, user.locate, user.appraise, user.control, user.finess, user.prowl, user.wreck, user.captivate, user.command, user.convince, user.feign, user.humility, user.ambition, user.honesty, user.creativity, user.justice, user.mercy, user.dignity, user.tolerance, user.bravery, user.caution, user.curiosity, user.loyalty, user.stress, user.mentalXp, user.physicalXp, user.senseXp, user.struggleOrExpress, user.heal, user.heal, user.trauma, user.harm3, user.harm21, user.harm22, user.harm11, user.harm12, user.specialSkills, user.specialItems, user.loadLevel, user.load1, user.load2, user.load3, user.load4, user.load5, user.load6, user.load7, user.load8, user.load9, user.load10, user.coin, user.stash, user.specialArmour, user.crafting, user.specialArmoutToggle);
+    console.log('saving', user.name, user.class, user.crew, user.cover, user.looks, user.heritage, user.vice, user.deduce, user.sense, user.locate, user.appraise, user.control, user.finess, user.prowl, user.wreck, user.captivate, user.command, user.convince, user.feign, user.humility, user.ambition, user.honesty, user.creativity, user.justice, user.mercy, user.dignity, user.tolerance, user.bravery, user.caution, user.curiosity, user.loyalty, user.stress, user.mentalXp, user.physicalXp, user.senseXp, user.struggleOrExpress, user.heal, user.heal, user.trauma, user.harm3, user.harm21, user.harm22, user.harm11, user.harm12, user.specialSkills, user.specialItems, user.loadLevel, user.load1, user.load2, user.load3, user.load4, user.load5, user.load6, user.load7, user.load8, user.load9, user.load0, user.coin, user.stash, user.specialArmour, user.crafting, user.specialArmoutToggle);
 
     localStorage.setItem("user", JSON.stringify(user));
 });
