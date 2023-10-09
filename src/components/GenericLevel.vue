@@ -7,6 +7,7 @@ const props = defineProps<{
     setLevel?: Function,
     title?: string,
     breakAt?: number,
+    longTitle?: boolean,
 }>()
 const items = Array.from({ length: props.maxLevel}, (value, index) => index);
 const setLevel = (level:number) => {
@@ -16,8 +17,8 @@ const setLevel = (level:number) => {
 
 <template>
     <div class="grid-cols-6 grid-cols-10 grid-cols-12"/>
-    <div class="mx-2 flex justify-between gap-4 p-1 align-center items-center">
-        <div class="w-20">{{title}}</div>
+    <div class="flex justify-between gap-4 py-1 align-center items-center">
+        <div :class="{['w-20'] : !longTitle}">{{title}}</div>
         <div class="grid gap-1" :class="{[`grid-cols-${breakAt ?? maxLevel}`]: true}">
             <div v-for="(i) in items" 
                  class="cursor-pointer w-4 h-4 m-1 border border-neutral-500 rounded-sm" 
