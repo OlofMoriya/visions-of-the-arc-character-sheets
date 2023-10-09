@@ -124,11 +124,11 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
             </div>
 
             <div class="my-4 mx-2 p-2 flex flex-col dark:border-neutral-400 border border-neutral-600">
-                <div class="flex">
+                <div class="flex w-full justify-center">
                     <div class="flex flex-col">
                         <GenericLevel title="Stress" :level="user.stress" :maxLevel="10" :setLevel="(l) => user.stress = l"/>
 
-                          <input class="h-8 dark:bg-neutral-700 p-2 text-center"  :value="user.trauma" placeholder="Trauma" @input="e => user.trauma = e.target.value"/> 
+                          <input class=" w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="user.trauma" placeholder="Trauma" @input="e => user.trauma = e.target.value"/> 
                     </div>
                     <div class="items-center justify-center flex flex-col">
                         <div>Heal</div>
@@ -211,7 +211,7 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
                     <Skill title="Feign" :level="user.feign" :setLevel="(l) => {user.feign = l}" />
                 </div>
             </div>
-            <div class="my-4 mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 items-center">
+            <div class="my-8 mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 items-center">
                 <div class="font-bold border-b-1 border-b text-center w-4/5 border-neutral-300">Xp triggers</div>
                 <GenericLevel :level="user.physicalXp" :setLevel="(l) => user.physicalXp = l" :maxLevel="6" title="Physical"/>
                 <GenericLevel :level="user.mentalXp" :setLevel="(l) => user.mentalXp = l" :maxLevel="6" title="Mental"/>
@@ -219,7 +219,7 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
                 <GenericLevel :level="user.struggleOrExpressXp" :setLevel="(l) => user.struggleOrExpressXp = l" :maxLevel="12" title="Struggle or Express" :breakAt="6"/>
 
             </div>
-            <div class="my-4 mx-2 flex justify-center gap-2 dark:border-neutral-400 border border-neutral-600 p-1">
+            <div class="my-1 mx-2 flex justify-center gap-2 dark:border-neutral-400 border border-neutral-600 p-1">
                         <div class="flex flex-col">
                                 <div class="text-center">Coin</div>
                               <input class="h-8 w-full dark:bg-neutral-700 p-2 text-center"  :value="user.coin" placeholder="0" @input="e => user.coin = e.target.value"/> 
@@ -246,11 +246,9 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
 
             </div>
             <div class="my-4 mx-2 flex p-2 flex-col dark:border-neutral-400 border border-neutral-600">
-                <GenericLevel :level="user.loadLevel" :setLevel="(l) => user.loadLevel = l" title="Loadout" :maxLevel="4"/>
-
+                <GenericLevel :level="user.loadLevel" :setLevel="(l) => user.loadLevel = l" title="Loadout" :maxLevel="4" :breakAt="4"/>
                 <div class="p-1 gap-1 grid col-span-2">
-                
-                <input v-for="(i, index) in load" :key="index" class="w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="getLoadIndex(index)" placeholder="" @input="e => setLoadIndex(index, e.target.value)"/> 
+                    <input v-for="(i, index) in load" :key="index" class="w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="getLoadIndex(index)" placeholder="" @input="e => setLoadIndex(index, e.target.value)"/> 
                 </div>
             </div>
         </div>
