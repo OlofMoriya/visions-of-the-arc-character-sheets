@@ -94,7 +94,7 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
   <main class="dark:bg-neutral-900 dark:text-neutral-200 rounded-sm bg-neutral-50 pt-20 h-full">
   <div class="w-full flex justify-center">
       <div class="flex justify-center dark:border-neutral-400 border-y-1 border-x-0 border border-neutral-600 my-4 w-3/4">
-          <input class="h-8 dark:bg-neutral-700 p-2 text-center w-80" :value="user.name" placeholder="name"/>
+          <input class="h-8 dark:bg-neutral-700 p-2 text-center w-80" :value="user.name" placeholder="name" @input="e => user.name = e.target.value"/>
       </div>
       </div>
       <div class="flex justify-center">
