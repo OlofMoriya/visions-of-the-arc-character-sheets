@@ -4,8 +4,11 @@ import Virtue from '../components/Virtue.vue';
 import FourClock from '../components/FourClock.vue';
 import GenericLevel from '../components/GenericLevel.vue';
 import Items from '../components/Items.vue';
+import ItemList from '../components/ItemList.vue';
 import '../style.css'; 
 import { ref, reactive, computed, watchEffect } from 'vue';
+
+let showItems = ref(false);
 
 let inputMode: boolean = false;
 const savedUser = localStorage.getItem("user");
@@ -257,5 +260,10 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
             </div>
         </div>
       </div>
+      <div class="cursor-pointer ml-4" :onClick="() => {showItems = !showItems}">Toggle item list</div>
+
+  <div v-if="showItems" class="w-full md:w-3/4 lg:w-1/2 p-8">
+        <ItemList/>
+  </div>
   </main>
 </template>
