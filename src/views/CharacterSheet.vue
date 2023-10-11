@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import Skill from '../components/Skill.vue'
-import Virtue from '../components/Virtue.vue'
-import FourClock from '../components/FourClock.vue'
-import GenericLevel from '../components/GenericLevel.vue'
+import Skill from '../components/Skill.vue';
+import Virtue from '../components/Virtue.vue';
+import FourClock from '../components/FourClock.vue';
+import GenericLevel from '../components/GenericLevel.vue';
+import Items from '../components/Items.vue';
 import '../style.css'; 
 import { ref, reactive, computed, watchEffect } from 'vue';
 
@@ -80,7 +81,7 @@ watchEffect(()=>{
 });
 const getLoadIndex = (index:  number) => user[`load${index}`] || '';
 const setLoadIndex = (index:  number, load: string) => user[`load${index}`] = load;
-
+const numberOfItems = computed(()=>user.loadLevel ? user.loadLevel * 2 + 1: 0);
 const mental = computed(()=>{return [user.deduce, user.sense, user.locate, user.appraise].filter(s=>s>0).length});
 
 const physical = computed(()=>{return [user.control, user.prowl, user.wreck, user.finess].filter(s=>s>0).length});
@@ -221,14 +222,14 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
 
             </div>
             <div class="my-1 mx-2 flex justify-center gap-2 dark:border-neutral-400 border border-neutral-600 p-1">
-                        <div class="flex flex-col">
-                                <div class="text-center">Coin</div>
-                              <input class="h-8 w-full dark:bg-neutral-700 p-2 text-center"  :value="user.coin" placeholder="0" @input="e => user.coin = e.target.value"/> 
-                        </div>
-                        <div class="">
-                                <div class="text-center">Stash</div>
-                              <input class="w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="user.stash" placeholder="0" @input="e => user.stash = e.target.value"/> 
-                        </div>
+                <div class="flex flex-col">
+                        <div class="text-center">Coin</div>
+                      <input class="h-8 w-full dark:bg-neutral-700 p-2 text-center"  :value="user.coin" placeholder="0" @input="e => user.coin = e.target.value"/> 
+                </div>
+                <div class="">
+                        <div class="text-center">Stash</div>
+                      <input class="w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="user.stash" placeholder="0" @input="e => user.stash = e.target.value"/> 
+                </div>
 
             </div>
         </div>
@@ -251,6 +252,8 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
                 <div class="p-1 gap-1 grid col-span-2">
                     <input v-for="(i, index) in load" :key="index" class="w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="getLoadIndex(index)" placeholder="" @input="e => setLoadIndex(index, e.target.value)"/> 
                 </div>
+
+                <!-- <Items :maxLoad="numberOfItems()" :setItems="(items) => user.items = items" :items="user.items"/> -->
             </div>
         </div>
       </div>
