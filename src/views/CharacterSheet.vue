@@ -262,7 +262,7 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
       </div>
       <div class="cursor-pointer ml-4" :onClick="() => {showItems = !showItems}">Toggle item list</div>
 
-  <div v-if="showItems" class="w-full md:w-3/4 lg:w-1/2 p-8">
+  <div v-if="showItems" class="w-full md:w-3/4 p-8">
         <ItemList/>
   </div>
   </main>
