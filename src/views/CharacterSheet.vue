@@ -174,19 +174,19 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
                 </div>
 
                 <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600">
-                    <div class="hidden group-hover:block z-10 absolute top-0 left-0 p-1 rounded-s bg-neutral-700">Get a sense of value, strengths and weaknesses</div>
+                    <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Get a sense of value, strengths and weaknesses</div>
                     <Skill title="Appraise" :level="user.appraise" :setLevel="(l) => {user.appraise = l}" />
                 </div>
                 <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600">
-                    <div class="hidden group-hover:block z-10 absolute top-0 left-0 p-1 rounded-s bg-neutral-700">Make a logical conclusion, a precise translation</div>
+                    <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Make a logical conclusion, a precise translation</div>
                     <Skill title="Deduce" :level="user.deduce" :setLevel="(l) => {user.deduce = l}" />
                 </div>
                 <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
-                    <div class="hidden group-hover:block z-10 absolute top-0 left-0 p-1 rounded-s bg-neutral-700">Find what is hidden, a trace of who passed here before</div>
+                    <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Find what is hidden, a trace of who passed here before</div>
                     <Skill title="Locate" :level="user.locate" :setLevel="(l) => {user.locate = l}" />
                 </div>
                 <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
-                    <div class="hidden group-hover:block z-10 absolute top-0 left-0 p-1 rounded-s bg-neutral-700">Become aware of threats or sense motives</div>
+                    <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Become aware of threats or sense motives</div>
                     <Skill title="Sense" :level="user.sense" :setLevel="(l) => {user.sense = l}" />
                 </div>
 
@@ -194,38 +194,38 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
                     <Skill title="Physical" :level="physical" :computedLevel="true"/>
                 </div>
                 <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
-                    <div class="hidden group-hover:block z-10 absolute top-0 left-0 p-1 rounded-s bg-neutral-700">Slow things down, stabilize, hold something back</div>
+                    <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Slow things down, stabilize, hold something back</div>
                     <Skill title="Control" :level="user.control" :setLevel="(l) => {user.control = l}" />
                 </div>
                 <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
-                    <div class="hidden group-hover:block z-10 absolute top-0 left-0 p-1 rounded-s bg-neutral-700">Achieve accuracy, fidelity, exactness</div>
+                    <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Achieve accuracy, fidelity, exactness</div>
                     <Skill title="Finess" :level="user.finess" :setLevel="(l) => {user.finess = l}" />
                 </div>
                 <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
-                    <div class="hidden group-hover:block z-10 absolute top-0 left-0 p-1 rounded-s bg-neutral-700">Move silently, discretely, subtly</div>
+                    <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Move silently, discretely, subtly</div>
                     <Skill title="Prowl" :level="user.prowl" :setLevel="(l) => {user.prowl = l}" />
                 </div>
                 <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
-                    <div class="hidden group-hover:block z-10 absolute top-0 left-0 p-1 rounded-s bg-neutral-700">Cause chaos, destruction and damage</div>
+                    <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Cause chaos, destruction and damage</div>
                     <Skill title="Wreck" :level="user.wreck" :setLevel="(l) => {user.wreck = l}" />
                 </div>
                 <div class="mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 dark:bg-neutral-100 bg-neutral-800 dark:text-neutral-800 text-neutral-200">
                     <Skill title="Social" :level="social" :computedLevel="true" />
                 </div>
                 <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
-                    <div class="hidden group-hover:block z-10 absolute top-0 left-0 p-1 rounded-s bg-neutral-700">Capture the attention, distract, entertain, disgust or attract</div>
+                    <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Capture the attention, distract, entertain, disgust or attract</div>
                     <Skill title="Captivate" :level="user.captivate" :setLevel="(l) => {user.captivate = l}" />
                 </div>
                 <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
-                    <div class="hidden group-hover:block z-10 absolute top-0 left-0 p-1 rounded-s bg-neutral-700">Ensure subordination based on fear or loyalty</div>
+                    <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Ensure subordination based on fear or loyalty</div>
                     <Skill title="Command" :level="user.command" :setLevel="(l) => {user.command = l}" />
                 </div>
                 <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
-                    <div class="hidden group-hover:block z-10 absolute top-0 left-0 p-1 rounded-s bg-neutral-700">Pretend to be something or someone you are not</div>
+                    <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Pretend to be something or someone you are not</div>
                     <Skill title="Convince" :level="user.convince" :setLevel="(l) => {user.convince = l}" />
                 </div>
                 <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
-                    <div class="hidden group-hover:block z-10 absolute top-0 left-0 p-1 rounded-s bg-neutral-700">Influence opinions, preferences or beliefs</div>
+                    <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Influence opinions, preferences or beliefs</div>
                     <Skill title="Feign" :level="user.feign" :setLevel="(l) => {user.feign = l}" />
                 </div>
             </div>
