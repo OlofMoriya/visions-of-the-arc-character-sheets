@@ -234,7 +234,7 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
                 <GenericLevel :level="user.physicalXp" :setLevel="(l) => user.physicalXp = l" :maxLevel="6" title="Physical"/>
                 <GenericLevel :level="user.mentalXp" :setLevel="(l) => user.mentalXp = l" :maxLevel="6" title="Mental"/>
                 <GenericLevel :level="user.socialXp" :setLevel="(l) => user.socialXp = l" :maxLevel="6" title="Social"/>
-                <GenericLevel :level="user.struggleOrExpress" :setLevel="(l) => user.struggleOrExpress = l" :maxLevel="12" title="Struggle or Express" :breakAt="6"/>
+                <GenericLevel :level="user.struggleOrExpress" :setLevel="(l) => user.struggleOrExpress = l" :maxLevel="12" title="Special ability" :breakAt="6"/>
 
             </div>
             <div class="my-1 mx-2 flex justify-center gap-2 dark:border-neutral-400 border border-neutral-600 p-1">
