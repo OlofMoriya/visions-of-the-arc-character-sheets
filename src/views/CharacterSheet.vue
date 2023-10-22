@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import InputView from '../components/InputView.vue';
 import Skill from '../components/Skill.vue';
 import Virtue from '../components/Virtue.vue';
 import FourClock from '../components/FourClock.vue';
@@ -7,7 +8,9 @@ import Items from '../components/Items.vue';
 import ItemList from '../components/ItemList.vue';
 import '../style.css'; 
 import { ref, reactive, computed, watchEffect } from 'vue';
+import divider from '../../public/divider.svg';
 
+let editing = ref(false);
 let showItems = ref(false);
 
 let inputMode: boolean = false;
@@ -45,6 +48,18 @@ const user = reactive({
     caution: ref(parsedUser.caution),
     curiosity: ref(parsedUser.curiosity),
     loyalty: ref(parsedUser.loyalty),
+    activeHumility: ref(parsedUser.activeHumility ?? parsedUser.humility ?? 0),
+    activeHmbition: ref(parsedUser.activeHmbition ?? parsedUser.humility ?? 0),
+    activeHonesty: ref(parsedUser.activeHonesty ?? parsedUser.humility ?? 0),
+    activeHreativity: ref(parsedUser.activeHreativity ?? parsedUser.humility ?? 0),
+    activeHustice: ref(parsedUser.activeHustice ?? parsedUser.humility ?? 0),
+    activeHercy: ref(parsedUser.activeHercy ?? parsedUser.humility ?? 0),
+    activeHignity: ref(parsedUser.activeHignity ?? parsedUser.humility ?? 0),
+    activeHolerance: ref(parsedUser.activeHolerance ?? parsedUser.humility ?? 0),
+    activeHravery: ref(parsedUser.activeHravery ?? parsedUser.humility ?? 0),
+    activeHaution: ref(parsedUser.activeHaution ?? parsedUser.humility ?? 0),
+    activeHuriosity: ref(parsedUser.activeHuriosity ?? parsedUser.humility ?? 0),
+    activeHoyalty: ref(parsedUser.activeHoyalty ?? parsedUser.humility ?? 0),
     stress: ref(parsedUser.stress),
     mentalXp: ref(parsedUser.mentalXp),
     physicalXp: ref(parsedUser.physicalXp),
@@ -95,44 +110,47 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
 </script>
 
 <template>
-  <main class="dark:bg-neutral-900 dark:text-neutral-200 rounded-sm bg-neutral-50 pt-20 h-full">
+  <main class="mr-6 dark:bg-neutral-900 dark:text-neutral-200 rounded-sm bg-neutral-50 pt-20 h-full relative">
+      <div class="flex flex-col absolute top-4 right-4" >
+          <div class="w-8 h-8 rounded-md border cursor-pointer" :onClick="() => editing = !editing" :class="{['bg-amber-500']:editing}" />
+        </div>
   <div class="w-full flex justify-center">
       <div class="flex justify-center dark:border-neutral-400 border-y-1 border-x-0 border border-neutral-600 my-4 w-3/4">
-          <input class="h-8 dark:bg-neutral-700 p-2 text-center w-80" :value="user.name" placeholder="name" @input="e => user.name = e.target.value"/>
+          <InputView noBorder :editing="editing" placeholder="name" :onChange="t => user.name = t" :value="user.name" />
+          <!-- <InputView :value="user.name" placeholder="name" onClick="t => user.name = t" :editing="editing"/> -->
       </div>
       </div>
       <div class="flex justify-center">
           <div class="">
-              <input class="h-8 dark:bg-neutral-700 p-2 text-center" placeholder="class : specialization" :value="user.class" @input="e => user.class = e.target.value"/> 
+              <InputView placeholder="class : specialization" :value="user.class" :onChange="t => user.class = t" :editing="editing"/> 
           </div>
-            <div class="mx-12">X</div>
+          <div class="mx-12">X</div>
           <div class="">
-              <input class="h-8 dark:bg-neutral-700 p-2 text-center"  :value="user.crew" placeholder="Crew" @input="e => user.crew = e.target.value"/> 
+              <InputView class="h-8 dark:bg-neutral-700 p-2 text-center"  :value="user.crew" placeholder="Crew" :onChange="t => user.crew = t" :editing="editing"/> 
           </div>
       </div>
       <div class="grid grid-cols-2 lg:grid-cols-3">
         <div class="flex flex-col">
-            <div class="my-4 mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600">
-                <input class="h-8 dark:bg-neutral-700 p-2 text-center m-2" placeholder="Cover" :value="user.cover" @input="e => user.cover = e.target.value"/> 
-                <textarea rows="3" class="dark:bg-neutral-700 p-2 text-center m-2" placeholder="Looks" :value="user.looks" @input="e => user.looks = e.target.value"/> 
-                <input class="h-8 dark:bg-neutral-700 p-2 text-center m-2" placeholder="Heritage" :value="user.heritage" @input="e => user.heritage = e.target.value"/> 
-                <input class="h-8 dark:bg-neutral-700 p-2 text-center m-2" placeholder="Vice" :value="user.vice" @input="e => user.vice = e.target.value"/> 
+            <div class="my-4 mx-2 flex flex-col ">
+                <InputView placeholder="Cover" :value="user.cover" :onChange="t => user.cover = t" :editing="editing"/> 
+                <InputView textArea placeholder="Looks" :value="user.looks" :onChange="t => user.looks = t" :editing="editing"/> 
+                <InputView placeholder="Heritage" :value="user.heritage" :onChange="t => user.heritage = t" :editing="editing"/> 
+                <InputView placeholder="Vice" :value="user.vice" :onChange="t => user.vice = t" :editing="editing"/> 
             </div> 
-            <div class="my-4 mx-2 flex items-center flex-col dark:border-neutral-400 border border-neutral-600">
+            <div class="my-4 mx-2 flex items-center flex-col ">
                 <div class="font-bold border-b-1 border-b text-center w-4/5 border-neutral-300">Virtues</div>
-                <Virtue titleLeft="Humility" :levelLeft="user.humility" :setLevelLeft="(l) => user.humility = l" titleRight="Ambition" :levelRight="user.ambition" :setLevelRight="(l) => user.ambition = l"/>
-               <Virtue titleLeft="Honesty" :levelLeft="user.honesty" :setLevelLeft="(l) => user.honesty = l" titleRight="Creativity" :levelRight="user.creativity" :setLevelRight="(l) => user.creativity = l"/>
-               <Virtue titleLeft="Justice" :levelLeft="user.justice" :setLevelLeft="(l) => user.justice = l" titleRight="Mercy" :levelRight="user.mercy" :setLevelRight="(l) => user.mercy = l"/>
-               <Virtue titleLeft="Dignity" :levelLeft="user.dignity" :setLevelLeft="(l) => user.dignity = l" titleRight="Tolerance" :levelRight="user.tolerance" :setLevelRight="(l) => user.tolerance = l"/>
-               <Virtue titleLeft="Bravery" :levelLeft="user.bravery" :setLevelLeft="(l) => user.bravery = l" titleRight="Caution" :levelRight="user.caution" :setLevelRight="(l) => user.caution = l"/>
-               <Virtue titleLeft="Curiosity" :levelLeft="user.curiosity" :setLevelLeft="(l) => user.curiosity = l" titleRight="Loyalty" :levelRight="user.loyalty" :setLevelRight="(l) => user.loyalty = l"/>
+                <Virtue titleLeft="Humility" :levelLeft="user.humility" :setLevelLeft="(l) => user.humility = l" titleRight="Ambition" :levelRight="user.ambition" :setLevelRight="(l) => user.ambition = l" :activeLevelLeft="user.activeHumility" :setActiveLevelLeft="(l) => user.activeHumility = l" :activeLevelRight="user.activeAmbition" :setActiveLevelRight="(l) => user.activeambition = l" :editing="editing"/>
+               <Virtue titleLeft="Honesty" :levelLeft="user.honesty" :setLevelLeft="(l) => user.honesty = l" titleRight="Creativity" :levelRight="user.creativity" :setLevelRight="(l) => user.creativity = l" :activeLevelLeft="user.activeHonesty" :setActiveLevelLeft="(l) => user.activeHonesty = l" :activeLevelRight="user.activeCreativity" :setActiveLevelRight="(l) => user.activeCreativity = l" :editing="editing"/>
+               <Virtue titleLeft="Justice" :levelLeft="user.justice" :setLevelLeft="(l) => user.justice = l" titleRight="Mercy" :levelRight="user.mercy" :setLevelRight="(l) => user.mercy = l" :activeLevelLeft="user.activeJustice" :setActiveLevelLeft="(l) => user.activeJustice = l" :activeLevelRight="user.activeMercy" :setActiveLevelRight="(l) => user.activeMercy = l" :editing="editing"/>
+               <Virtue titleLeft="Dignity" :levelLeft="user.dignity" :setLevelLeft="(l) => user.dignity = l" titleRight="Tolerance" :levelRight="user.tolerance" :setLevelRight="(l) => user.tolerance = l" :activeLevelLeft="user.activeDignity" :setActiveLevelLeft="(l) => user.activeDignity = l" :activeLevelRight="user.activeTolerance" :setActiveLevelRight="(l) => user.activeTolerance = l" :editing="editing"/>
+               <Virtue titleLeft="Bravery" :levelLeft="user.bravery" :setLevelLeft="(l) => user.bravery = l" titleRight="Caution" :levelRight="user.caution" :setLevelRight="(l) => user.caution = l" :activeLevelLeft="user.activeBravery" :setActiveLevelLeft="(l) => user.activeBravery = l" :activeLevelRight="user.activeCaution" :setActiveLevelRight="(l) => user.activeCaution = l" :editing="editing"/>
+               <Virtue titleLeft="Curiosity" :levelLeft="user.curiosity" :setLevelLeft="(l) => user.curiosity = l" titleRight="Loyalty" :levelRight="user.loyalty" :setLevelRight="(l) => user.loyalty = l" :activeLevelLeft="user.activeCuriosity" :setActiveLevelLeft="(l) => user.activeCuriosity = l" :activeLevelRight="user.activeLoyalty" :setActiveLevelRight="(l) => user.activeLoyalty = l" :editing="editing"/>
             </div>
 
-            <div class="my-4 mx-2 p-2 flex flex-col dark:border-neutral-400 border border-neutral-600">
+            <div class="my-4 mx-2 p-2 flex flex-col">
                 <div class="flex w-full justify-center">
                     <div class="flex flex-col">
                         <GenericLevel title="Stress" :level="user.stress" :maxLevel="10" :setLevel="(l) => user.stress = l"/>
-
                           <input class=" w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="user.trauma" placeholder="Trauma" @input="e => user.trauma = e.target.value"/> 
                     </div>
                     <div class="items-center justify-center flex flex-col">
@@ -169,7 +187,7 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
         <div class="flex flex-col">
             <div class="flex flex-col mt-4">
 
-                <div class="mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 dark:bg-neutral-100 bg-neutral-800 dark:text-neutral-800 text-neutral-200">
+                <div class="mx-2 flex flex-col dark:bg-neutral-100 bg-neutral-800 dark:text-neutral-800 text-neutral-200">
                     <Skill title="Mental" :level="mental" :computedLevel="true"/>
                 </div>
 
@@ -229,15 +247,15 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
                     <Skill title="Feign" :level="user.feign" :setLevel="(l) => {user.feign = l}" />
                 </div>
             </div>
-            <div class="my-8 mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 items-center">
+            <div class="my-8 mx-2 flex flex-col items-center">
                 <div class="font-bold border-b-1 border-b text-center w-4/5 border-neutral-300">Xp triggers</div>
                 <GenericLevel :level="user.physicalXp" :setLevel="(l) => user.physicalXp = l" :maxLevel="6" title="Physical"/>
                 <GenericLevel :level="user.mentalXp" :setLevel="(l) => user.mentalXp = l" :maxLevel="6" title="Mental"/>
                 <GenericLevel :level="user.socialXp" :setLevel="(l) => user.socialXp = l" :maxLevel="6" title="Social"/>
-                <GenericLevel :level="user.struggleOrExpress" :setLevel="(l) => user.struggleOrExpress = l" :maxLevel="12" title="Special ability" :breakAt="6"/>
+                <GenericLevel :level="user.struggleOrExpress" :setLevel="(l) => user.struggleOrExpress = l" :maxLevel="8" title="Special ability" :breakAt="6"/>
 
             </div>
-            <div class="my-1 mx-2 flex justify-center gap-2 dark:border-neutral-400 border border-neutral-600 p-1">
+            <div class="my-1 mx-2 flex justify-center gap-2">
                 <div class="flex flex-col">
                         <div class="text-center">Coin</div>
                       <input class="h-8 w-full dark:bg-neutral-700 p-2 text-center"  :value="user.coin" placeholder="0" @input="e => user.coin = e.target.value"/> 
@@ -251,21 +269,16 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
         </div>
 
         <div class="flex flex-col">
-            <div class="my-4 mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 p-2">
-
+            <div class="my-4 mx-2 flex flex-col ">
                 <GenericLevel title="Special armour" :maxLevel="1" :longTitle="true" :level="user.specialArmourToggle" :setLevel="(l) => user.specialArmourToggle = l"/>
-                <input class="w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="user.specialArmour" placeholder="" @input="e => user.specialArmour = e.target.value"/> 
-                <div class="w-full mt-2">Special abilities</div> 
-                <textarea class="w-full dark:bg-neutral-700 p-2 text-center" rows="3" :value="user.specialSkills" placeholder="" @input="e => user.specialSkills = e.target.value"/> 
-                <div class="w-full mt-2">Special items</div> 
-                <textarea rows="3" class="w-full dark:bg-neutral-700 p-2 text-center"  :value="user.specialItems" placeholder="" @input="e => user.specialItems = e.target.value"/> 
-                <div class="w-full mt-2">Craft</div> 
-                <input class="w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="user.crafting" placeholder="" @input="e => user.crafting = e.target.value"/> 
-
+                <InputView placeholder="" :onChange="t => user.specialArmour = t" :editing="editing" :value="user.specialArmour"/> 
+                <InputView placeholder="Special abilities" :onChange="t => user.specialSkills = t" :editing="editing" textArea :value="user.specialSkills"/> 
+                <InputView rows="3" placeholder="Special Items" :onChange="t => user.specialItems = t" :editing="editing" textArea :value="user.specialItems"/> 
+                <InputView placeholder="Crafting" :onChange="t => user.crafting = t" :editing="editing" textArea :value="user.crafting"/> 
             </div>
-            <div class="my-4 mx-2 flex p-2 flex-col dark:border-neutral-400 border border-neutral-600">
+            <div class="my-4 mx-2 flex flex-col">
                 <GenericLevel :level="user.loadLevel" :setLevel="(l) => user.loadLevel = l" title="Loadout" :maxLevel="4" :breakAt="4"/>
-                <div class="p-1 gap-1 grid col-span-2">
+                <div class="gap-1 grid col-span-2">
                     <input v-for="(i, index) in load" :key="index" class="w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="getLoadIndex(index)" placeholder="" @input="e => setLoadIndex(index, e.target.value)"/> 
                 </div>
 
