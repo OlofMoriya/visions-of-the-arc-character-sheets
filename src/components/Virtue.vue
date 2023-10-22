@@ -45,7 +45,6 @@ const setLevelRight = (level:number) => {
     <div class="mx-2 flex gap-4 justify-between pt-1 align-center items-center">
         <div class="flex gap-1">
             <div class="w-20 pr-2 text-right font-bold">{{titleLeft}}</div>
-            <div>{{activeLevelLeft}}</div>
             <div class="cursor-pointer w-3 h-3 m-1 border border-neutral-500 rounded-full" 
                     :class="{ 
                  ['bg-amber-600'] : editing && second, 
@@ -80,7 +79,6 @@ const setLevelRight = (level:number) => {
                  }"
                     :onClick="()=>setLevelRight(editing && forth || !editing && activeForth ? 1 : 2)"
             />
-            <div>{{activeLevelRight}}</div>
             <div class="w-20 pl-2 text-left font-bold">{{titleRight}}</div>
             </div>
     </div>
