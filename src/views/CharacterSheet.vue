@@ -8,7 +8,6 @@ import Items from '../components/Items.vue';
 import ItemList from '../components/ItemList.vue';
 import '../style.css'; 
 import { ref, reactive, computed, watchEffect } from 'vue';
-import divider from '../../public/divider.svg';
 
 let editing = ref(false);
 let showItems = ref(false);
@@ -49,7 +48,7 @@ const user = reactive({
     curiosity: ref(parsedUser.curiosity),
     loyalty: ref(parsedUser.loyalty),
     activeHumility: ref(parsedUser.activeHumility ?? parsedUser.humility ?? 0),
-    activeHmbition: ref(parsedUser.activeHmbition ?? parsedUser.humility ?? 0),
+    activeAmbition: ref(parsedUser.activeAmbition ?? parsedUser.humility ?? 0),
     activeHonesty: ref(parsedUser.activeHonesty ?? parsedUser.humility ?? 0),
     activeHreativity: ref(parsedUser.activeHreativity ?? parsedUser.humility ?? 0),
     activeHustice: ref(parsedUser.activeHustice ?? parsedUser.humility ?? 0),
