@@ -5,13 +5,14 @@ const props = defineProps<{
     level: number,
     computedLevel?: boolean,
     setLevel?: Function,
-  
+    extra?: boolean,
 }>()
 
 const first = computed(()=> props.level > 0);
 const second = computed(()=> props.level > 1);
 const third = computed(()=> props.level > 2);
 const forth = computed(()=> props.level > 3);
+const fifth = computed(()=> props.extra ?? false);
 const setLevel = (level:number) => {
     if (!props.computedLevel) {
         props.setLevel?.(level);
@@ -23,6 +24,9 @@ const setLevel = (level:number) => {
     <div class="mx-2 flex gap-4 justify-between align-center items-center">
         <div>{{title}}</div>
         <div class="flex gap-1">
+            <div v-if="props.extra" class="cursor-pointer w-4 h-4 m-1 border border-neutral-300 rounded-sm" 
+                                    :class="{ ['bg-rose-600'] : fifth}"
+                                    />
             <div class="cursor-pointer w-4 h-4 m-1 border border-neutral-500 rounded-sm" 
                     :class="{ ['bg-amber-600'] : first}"
                     :onClick="()=>props.level == 1 ? setLevel(0) : setLevel(1)"
