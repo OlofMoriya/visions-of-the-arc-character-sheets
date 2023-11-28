@@ -47,6 +47,7 @@ const user = reactive({
     caution: ref(parsedUser.caution),
     curiosity: ref(parsedUser.curiosity),
     loyalty: ref(parsedUser.loyalty),
+    notes: ref(parsedUser.notes),
     activeHumility: ref(parsedUser.activeHumility ?? parsedUser.humility ?? 0),
     activeAmbition: ref(parsedUser.activeAmbition ?? parsedUser.ambition ?? 0),
     activeHonesty: ref(parsedUser.activeHonesty ?? parsedUser.honesty ?? 0),
@@ -272,7 +273,7 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
                 <GenericLevel title="Special armour" :maxLevel="1" :longTitle="true" :level="user.specialArmourToggle" :setLevel="(l) => user.specialArmourToggle = l"/>
                 <InputView placeholder="" :onChange="t => user.specialArmour = t" :editing="editing" :value="user.specialArmour"/> 
                 <InputView placeholder="Special abilities" :onChange="t => user.specialSkills = t" :editing="editing" textArea :value="user.specialSkills"/> 
-                <InputView rows="3" placeholder="Special Items" :onChange="t => user.specialItems = t" :editing="editing" textArea :value="user.specialItems"/> 
+                <InputView placeholder="Special Items" :onChange="t => user.specialItems = t" :editing="editing" textArea :value="user.specialItems"/> 
                 <InputView placeholder="Crafting" :onChange="t => user.crafting = t" :editing="editing" textArea :value="user.crafting"/> 
             </div>
             <div class="my-4 mx-2 flex flex-col">
@@ -283,9 +284,12 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
 
                 <!-- <Items :maxLoad="numberOfItems()" :setItems="(items) => user.items = items" :items="user.items"/> -->
             </div>
+            <div class="my-4 mx-2 flex flex-col">
+                <InputView placeholder="Notes" :editing="editing" textArea :onChange="t => user.notes = t" :value="user.notes"/>
+            </div>
         </div>
       </div>
-      <div class="cursor-pointer ml-4" :onClick="() => {showItems = !showItems}">Toggle item list</div>
+      <div class="cursor-pointer ml-4" :onClick="() => {showItems = !showItems}">Item list</div>
 
   <div v-if="showItems" class="w-full md:w-3/4 p-8">
         <ItemList/>
