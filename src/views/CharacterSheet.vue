@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import hellazgo_map from '../../public/hellazgo.png';
 import InputView from '../components/InputView.vue';
 import Skill from '../components/Skill.vue';
 import Virtue from '../components/Virtue.vue';
@@ -11,6 +12,7 @@ import { ref, reactive, computed, watchEffect } from 'vue';
 
 let editing = ref(false);
 let showItems = ref(false);
+let showMap = ref(false);
 
 let inputMode: boolean = false;
 const savedUser = localStorage.getItem("user");
@@ -291,6 +293,10 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
       </div>
       <div class="cursor-pointer ml-4" :onClick="() => {showItems = !showItems}">Item list</div>
 
+      <div class="cursor-pointer ml-4" :onClick="() => {showMap = !showMap}">Map</div>
+      <div v-if="showMap" class="p-8">
+        <img :src="hellazgo_map"/>
+      </div>
   <div v-if="showItems" class="w-full md:w-3/4 p-8">
         <ItemList/>
   </div>
