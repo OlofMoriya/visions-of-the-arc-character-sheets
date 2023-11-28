@@ -285,7 +285,7 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
                 <!-- <Items :maxLoad="numberOfItems()" :setItems="(items) => user.items = items" :items="user.items"/> -->
             </div>
             <div class="my-4 mx-2 flex flex-col">
-                <InputView placeholder="Notes" :editing="editing" textArea :onChange="t => user.notes = t" :value="user.notes"/>
+                <InputView placeholder="Notes" :editing="false" textArea :onChange="t => user.notes = t" :value="user.notes"/>
             </div>
         </div>
       </div>
