@@ -11,7 +11,7 @@ import '../style.css';
 import { ref, reactive, computed, watchEffect, onMounted } from 'vue';
 import DiceBox from "@3d-dice/dice-box";
 import { BiDice1Fill } from 'oh-vue-icons/icons';
-import { addDoc, collection, doc, onSnapshot, query, Timestamp, where } from "firebase/firestore";
+import { setDoc, addDoc, collection, doc, onSnapshot, query, Timestamp, where } from "firebase/firestore";
 import {db} from "../firebase"
 import DiceLog from '../components/DiceLog.vue';
 
@@ -25,83 +25,87 @@ let inputMode: boolean = false;
 const savedUser = localStorage.getItem("user");
 const parsedUser = savedUser ? JSON.parse(savedUser) : {};
 const user = reactive({
-    id: ref(parsedUser.id ?? Math.floor(Math.random()*90000000)),
-    name: ref(parsedUser.name),
-    class: ref(parsedUser.class),
-    crew: ref(parsedUser.crew),
-    cover: ref(parsedUser.cover),
-    looks: ref(parsedUser.looks),
-    heritage: ref(parsedUser.heritage),
-    vice: ref(parsedUser.vice),
-    deduce: ref(parsedUser.deduce),
-    sense: ref(parsedUser.sense),
-    locate: ref(parsedUser.locate),
-    appraise: ref(parsedUser.appraise),
-    control: ref(parsedUser.control),
-    finess: ref(parsedUser.finess),
-    prowl: ref(parsedUser.prowl),
-    wreck: ref(parsedUser.wreck),
-    captivate: ref(parsedUser.captivate),
-    command: ref(parsedUser.command),
-    convince: ref(parsedUser.convince),
-    feign: ref(parsedUser.feign),
-    humility: ref(parsedUser.humility),
-    ambition: ref(parsedUser.ambition),
-    honesty: ref(parsedUser.honesty),
-    creativity: ref(parsedUser.creativity),
-    justice: ref(parsedUser.justice),
-    mercy: ref(parsedUser.mercy),
-    dignity: ref(parsedUser.dignity),
-    tolerance: ref(parsedUser.tolerance),
-    bravery: ref(parsedUser.bravery),
-    caution: ref(parsedUser.caution),
-    curiosity: ref(parsedUser.curiosity),
-    loyalty: ref(parsedUser.loyalty),
-    notes: ref(parsedUser.notes),
-    activeHumility: ref(parsedUser.activeHumility ?? parsedUser.humility ?? 0),
-    activeAmbition: ref(parsedUser.activeAmbition ?? parsedUser.ambition ?? 0),
-    activeHonesty: ref(parsedUser.activeHonesty ?? parsedUser.honesty ?? 0),
-    activeCreativity: ref(parsedUser.activeCreativity ?? parsedUser.creativity ?? 0),
-    activeJustice: ref(parsedUser.activeJustice ?? parsedUser.justice ?? 0),
-    activeMercy: ref(parsedUser.activeMercy ?? parsedUser.mercy ?? 0),
-    activeDignity: ref(parsedUser.activeDignity ?? parsedUser.dignity ?? 0),
-    activeTolerance: ref(parsedUser.activeTolerance ?? parsedUser.tolerance ?? 0),
-    activeBravery: ref(parsedUser.activeBravery ?? parsedUser.bravery ?? 0),
-    activeCaution: ref(parsedUser.activeCaution ?? parsedUser.caution ?? 0),
-    activeCuriosity: ref(parsedUser.activeCuriosity ?? parsedUser.curiosity ?? 0),
-    activeLoyalty: ref(parsedUser.activeLoyalty ?? parsedUser.loyalty ?? 0),
-    stress: ref(parsedUser.stress),
-    mentalXp: ref(parsedUser.mentalXp),
-    physicalXp: ref(parsedUser.physicalXp),
-    socialXp: ref(parsedUser.socialXp),
-    struggleOrExpress: ref(parsedUser.struggleOrExpress),
-    heal: ref(parsedUser.heal),
-    trauma: ref(parsedUser.trauma),
-    harm3: ref(parsedUser.harm3),
-    harm21: ref(parsedUser.harm21),
-    harm22: ref(parsedUser.harm22),
-    harm11: ref(parsedUser.harm11),
-    harm12: ref(parsedUser.harm12),
-    specialSkills: ref(parsedUser.specialSkills),
-    specialItems: ref(parsedUser.specialItems),
-    specialArmour: ref(parsedUser.specialArmour),
-    crafting: ref(parsedUser.crafting),
-    loadLevel: ref(parsedUser.loadLevel ?? 0),
-    load: ref(parsedUser.load ?? []),
-    coin: ref(parsedUser.coin),
-    stash: ref(parsedUser.stash),
-    specialArmourToggle: ref(parsedUser.specialArmourToggle),
+    id: ref(parsedUser.id ?? Math.random().toString(36)),
+    name: ref(parsedUser.name ?? null),
+    class: ref(parsedUser.class ?? null),
+    crew: ref(parsedUser.crew ?? null),
+    cover: ref(parsedUser.cover ?? null),
+    looks: ref(parsedUser.looks ?? null),
+    heritage: ref(parsedUser.heritage ?? null),
+    vice: ref(parsedUser.vice ?? null),
+    deduce: ref(parsedUser.deduce ?? null),
+    sense: ref(parsedUser.sense ?? null),
+    locate: ref(parsedUser.locate ?? null),
+    appraise: ref(parsedUser.appraise ?? null),
+    control: ref(parsedUser.control ?? null),
+    finess: ref(parsedUser.finess ?? null),
+    prowl: ref(parsedUser.prowl ?? null),
+    wreck: ref(parsedUser.wreck ?? null),
+    captivate: ref(parsedUser.captivate ?? null),
+    command: ref(parsedUser.command ?? null),
+    convince: ref(parsedUser.convince ?? null),
+    feign: ref(parsedUser.feign ?? null),
+    humility: ref(parsedUser.humility ?? null),
+    ambition: ref(parsedUser.ambition ?? null),
+    honesty: ref(parsedUser.honesty ?? null),
+    creativity: ref(parsedUser.creativity ?? null),
+    justice: ref(parsedUser.justice ?? null),
+    mercy: ref(parsedUser.mercy ?? null),
+    dignity: ref(parsedUser.dignity ?? null),
+    tolerance: ref(parsedUser.tolerance ?? null),
+    bravery: ref(parsedUser.bravery ?? null),
+    caution: ref(parsedUser.caution ?? null),
+    curiosity: ref(parsedUser.curiosity ?? null),
+    loyalty: ref(parsedUser.loyalty ?? null),
+    notes: ref(parsedUser.notes ?? null),
+    activeHumility: ref(parsedUser.activeHumility ?? parsedUser.humility ?? 0 ?? null),
+    activeAmbition: ref(parsedUser.activeAmbition ?? parsedUser.ambition ?? 0 ?? null),
+    activeHonesty: ref(parsedUser.activeHonesty ?? parsedUser.honesty ?? 0 ?? null),
+    activeCreativity: ref(parsedUser.activeCreativity ?? parsedUser.creativity ?? 0 ?? null),
+    activeJustice: ref(parsedUser.activeJustice ?? parsedUser.justice ?? 0 ?? null),
+    activeMercy: ref(parsedUser.activeMercy ?? parsedUser.mercy ?? 0 ?? null),
+    activeDignity: ref(parsedUser.activeDignity ?? parsedUser.dignity ?? 0 ?? null),
+    activeTolerance: ref(parsedUser.activeTolerance ?? parsedUser.tolerance ?? 0 ?? null),
+    activeBravery: ref(parsedUser.activeBravery ?? parsedUser.bravery ?? 0 ?? null),
+    activeCaution: ref(parsedUser.activeCaution ?? parsedUser.caution ?? 0 ?? null),
+    activeCuriosity: ref(parsedUser.activeCuriosity ?? parsedUser.curiosity ?? 0 ?? null),
+    activeLoyalty: ref(parsedUser.activeLoyalty ?? parsedUser.loyalty ?? 0 ?? null),
+    stress: ref(parsedUser.stress ?? null),
+    mentalXp: ref(parsedUser.mentalXp ?? null),
+    physicalXp: ref(parsedUser.physicalXp ?? null),
+    socialXp: ref(parsedUser.socialXp ?? null),
+    struggleOrExpress: ref(parsedUser.struggleOrExpress ?? null),
+    heal: ref(parsedUser.heal ?? null),
+    trauma: ref(parsedUser.trauma ?? null),
+    harm3: ref(parsedUser.harm3 ?? null),
+    harm21: ref(parsedUser.harm21 ?? null),
+    harm22: ref(parsedUser.harm22 ?? null),
+    harm11: ref(parsedUser.harm11 ?? null),
+    harm12: ref(parsedUser.harm12 ?? null),
+    specialSkills: ref(parsedUser.specialSkills ?? null),
+    specialItems: ref(parsedUser.specialItems ?? null),
+    specialArmour: ref(parsedUser.specialArmour ?? null),
+    crafting: ref(parsedUser.crafting ?? null),
+    loadLevel: ref(parsedUser.loadLevel ?? 0 ?? null),
+    load: ref(parsedUser.load ?? [] ?? null),
+    coin: ref(parsedUser.coin ?? null),
+    stash: ref(parsedUser.stash ?? null),
+    specialArmourToggle: ref(parsedUser.specialArmourToggle ?? null),
     });
 
 watchEffect(async ()=>{
     console.log('saving', user.name, user.class, user.crew, user.cover, user.looks, user.heritage, user.vice, user.deduce, user.sense, user.locate, user.appraise, user.control, user.finess, user.prowl, user.wreck, user.captivate, user.command, user.convince, user.feign, user.humility, user.ambition, user.honesty, user.creativity, user.justice, user.mercy, user.dignity, user.tolerance, user.bravery, user.caution, user.curiosity, user.loyalty, user.stress, user.mentalXp, user.physicalXp, user.socialXp, user.struggleOrExpress, user.heal, user.heal, user.trauma, user.harm3, user.harm21, user.harm22, user.harm11, user.harm12, user.specialSkills, user.specialItems, user.loadLevel, user.coin, user.stash, user.specialArmour, user.crafting, user.specialArmourToggle, user.notes);
 
     localStorage.setItem("user", JSON.stringify(user));
-    console.log(await fetch("http://localhost:5544/characters", {
-        method: "POST",
-        body: JSON.stringify({character:user})
-    }));
+    saveUser();
 });
+
+async function saveUser(){
+    console.log("id", user.id);
+    const docRef = await setDoc(doc(db, "characters", user.id), user);
+    
+    console.log("updated user", docRef);
+}
 
 const getLoadIndex = (index:  number) => user.load[index] || '';
 const setLoadIndex = (index:  number, load: string) => user.load[index] = load;
