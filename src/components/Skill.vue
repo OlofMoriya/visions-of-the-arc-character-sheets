@@ -13,6 +13,7 @@ const second = computed(()=> props.level > 1);
 const third = computed(()=> props.level > 2);
 const forth = computed(()=> props.level > 3);
 const fifth = computed(()=> props.extra ?? false);
+
 const setLevel = (level:number) => {
     if (!props.computedLevel) {
         props.setLevel?.(level);
