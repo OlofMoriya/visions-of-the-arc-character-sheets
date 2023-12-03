@@ -146,7 +146,7 @@ async function roll(skill: number, message?: string) {
     const obj = {
         character: user.name || "Unknown",
         roll: diceResults,
-        message: (message ?? ("Rolled " + num + "d6")) + (skill === 0 ? "for least value": "") + (loaded.value != 0 ? ("loaded with " + loaded.value) : ""),
+        message: (message ?? ("Rolled " + num + "d6")) + (skill === 0 ? " for least value": "") + (loaded.value != 0 ? (" loaded with " + loaded.value) : ""),
         date: Timestamp.now(),
         outcome: skill < 1 ? Math.min(...diceResults) : Math.max(...diceResults),
     };
@@ -156,8 +156,12 @@ async function roll(skill: number, message?: string) {
 }
 const loaded = ref(0);
         
-function renderLoadedDiceName() {
-    return "bi-dice-"+Math.max(Math.min(Math.abs(loaded.value), 6), 1)+"-fill"
+function renderLoadedDiceName(pos: boolean) {
+    if (pos && loaded.value > 0 || !pos && loaded.value < 0)
+        return "bi-dice-"+Math.max(Math.min(Math.abs(loaded.value), 6), 1)+"-fill"
+    else 
+        return "bi-dice-1-fill"
+    
 }
 
 </script>
@@ -200,7 +204,7 @@ function renderLoadedDiceName() {
                                         else
                                             loaded--;
                                     }" 
-                                    :name="renderLoadedDiceName()"
+                                    :name="renderLoadedDiceName(false)"
                                     class="mt-5 w-5 h-5 cursor-pointer"
                                     /> 
                                 <v-icon 
@@ -215,7 +219,7 @@ function renderLoadedDiceName() {
                                         else
                                             loaded++;
                                     }" 
-                                    :name="renderLoadedDiceName()"
+                                    :name="renderLoadedDiceName(true)"
                                     class="mt-5 w-5 h-5 cursor-pointer"
                                     /> 
                             </div>
