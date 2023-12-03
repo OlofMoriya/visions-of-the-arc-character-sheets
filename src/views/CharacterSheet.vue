@@ -126,15 +126,24 @@ onMounted(() => {
     });
 });
 
-async function roll(num: string) {
+async function roll(skill: number, message?: string) {
+    let num = 0;
+    switch(skill) {
+        case 0: 
+            num = 2;
+            break;
+        default: 
+            num = skill;
+    }
     diceBox.show()
     const result = await diceBox.roll(num + "d6");
-    console.log(result);
+    const diceResults = result.map((r: { value: any; }) => r.value);
     const obj = {
-        character: user.name || "nisse",
-        roll: result.map(r => r.value),
-        message: "Rolled " + num + "d6",
-        date: Timestamp.now()
+        character: user.name || "Unknown",
+        roll: diceResults,
+        message: message ?? ("Rolled " + num + "d6" + (skill === 0 ? "for least value": "")),
+        date: Timestamp.now(),
+        outcome: skill === 0 ? Math.min(...diceResults) : Math.max(...diceResults),
     };
     const docRef = await addDoc(collection(db, "rolls"), obj);
     console.log("Document written with ID: ", docRef.id);
@@ -142,7 +151,6 @@ async function roll(num: string) {
 }
 
 function toggleDice(){
-    console.log("hi")
     showDice.value = !showDice.value;
     if (showDice.value){
         diceBox.show()
@@ -153,7 +161,7 @@ function toggleDice(){
 
 <template>
     <main class="mr-6 dark:bg-neutral-900 dark:text-neutral-200 rounded-sm bg-neutral-50 pt-20 h-full relative">
-                <DiceLog/>
+        <DiceLog :onRoll="(num)=>{roll(num)}"/>
         <div class="flex gap-6 absolute top-4 right-4" >
             <div class="flex flex-col">           
                 <div class="w-8 h-8 rounded-md border cursor-pointer"  :onClick="() => {showItems = !showItems}" :class="{['bg-amber-500']:showItems}"/>Items
@@ -241,63 +249,63 @@ function toggleDice(){
                                 <div class="flex flex-col mt-4">
 
                                     <div class="mx-2 flex flex-col dark:bg-neutral-100 bg-neutral-800 dark:text-neutral-800 text-neutral-200">
-                                        <Skill :onRoll="(num) => {roll(num)}" title="Mental" :level="mental" :computedLevel="true"/>
+                                        <Skill :onRoll="(num) => {roll(num, 'Rolled mental')}" title="Mental" :level="mental" :computedLevel="true"/>
                                     </div>
 
                                     <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600">
                                         <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Get a sense of value, strengths and weaknesses</div>
-                                        <Skill :onRoll="(num) => {roll(num)}" title="Appraise" :level="user.appraise" :setLevel="(l) => {user.appraise = l}" />
+                                        <Skill :onRoll="(num) => {roll(num, 'Rolled appraise')}" title="Appraise" :level="user.appraise" :setLevel="(l) => {user.appraise = l}" />
                                     </div>
                                     <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600">
                                         <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Make a logical conclusion, a precise translation</div>
-                                        <Skill title="Deduce" :onRoll="(num) => {roll(num)}" :level="user.deduce" :setLevel="(l) => {user.deduce = l}" />
+                                        <Skill title="Deduce" :onRoll="(num) => {roll(num, 'Rolled deduce')}" :level="user.deduce" :setLevel="(l) => {user.deduce = l}" />
                                     </div>
                                     <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
                                         <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Find what is hidden, a trace of who passed here before</div>
-                                        <Skill title="Locate" :onRoll="(num) => {roll(num)}" :level="user.locate" :setLevel="(l) => {user.locate = l}" />
+                                        <Skill title="Locate" :onRoll="(num) => {roll(num, 'Rolled locate')}" :level="user.locate" :setLevel="(l) => {user.locate = l}" />
                                     </div>
                                     <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
                                         <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Become aware of threats or sense motives</div>
-                                        <Skill title="Sense" :onRoll="(num) => {roll(num)}" :level="user.sense" :setLevel="(l) => {user.sense = l}" />
+                                        <Skill title="Sense" :onRoll="(num) => {roll(num, 'Rolled sense')}" :level="user.sense" :setLevel="(l) => {user.sense = l}" />
                                     </div>
 
                                     <div class="mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 dark:bg-neutral-100 bg-neutral-800 dark:text-neutral-800 text-neutral-200">
-                                        <Skill title="Physical" :level="physical" :computedLevel="true" extra/>
+                                        <Skill title="Physical" :onRoll="(num) => {roll(num, 'Rolled physical')}" :level="physical" :computedLevel="true" extra/>
                                     </div>
                                     <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
                                         <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Slow things down, stabilize, hold something back</div>
-                                        <Skill title="Control" :level="user.control" :setLevel="(l) => {user.control = l}" />
+                                        <Skill title="Control" :onRoll="(num) => {roll(num, 'Rolled control')}" :level="user.control" :setLevel="(l) => {user.control = l}" />
                                     </div>
                                     <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
                                         <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Achieve accuracy, fidelity, exactness</div>
-                                        <Skill title="Finess" :level="user.finess" :setLevel="(l) => {user.finess = l}" />
+                                        <Skill title="Finess" :onRoll="(num) => {roll(num, 'Rolled finess')}" :level="user.finess" :setLevel="(l) => {user.finess = l}" />
                                     </div>
                                     <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
                                         <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Move silently, discretely, subtly</div>
-                                        <Skill title="Prowl" :level="user.prowl" :setLevel="(l) => {user.prowl = l}" />
+                                        <Skill title="Prowl" :onRoll="(num) => {roll(num, 'Rolled prowl')}" :level="user.prowl" :setLevel="(l) => {user.prowl = l}" />
                                     </div>
                                     <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
                                         <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Cause chaos, destruction and damage</div>
-                                        <Skill title="Wreck" :level="user.wreck" :setLevel="(l) => {user.wreck = l}" />
+                                        <Skill title="Wreck" :onRoll="(num) => {roll(num, 'Rolled wreck')}" :level="user.wreck" :setLevel="(l) => {user.wreck = l}" />
                                     </div>
                                     <div class="mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 dark:bg-neutral-100 bg-neutral-800 dark:text-neutral-800 text-neutral-200">
-                                        <Skill title="Social" :level="social" :computedLevel="true" />
+                                        <Skill title="Social" :onRoll="(num) => {roll(num, 'Rolled social')}" :level="social" :computedLevel="true" />
                                     </div>
                                     <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
                                         <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Capture the attention, distract, entertain, disgust or attract</div>
-                                        <Skill title="Captivate" :level="user.captivate" :setLevel="(l) => {user.captivate = l}" />
+                                        <Skill title="Captivate" :onRoll="(num) => {roll(num, 'Rolled captivate')}" :level="user.captivate" :setLevel="(l) => {user.captivate = l}" />
                                     </div>
                                     <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
                                         <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Ensure subordination based on fear or loyalty</div>
-                                        <Skill title="Command" :level="user.command" :setLevel="(l) => {user.command = l}" />
+                                        <Skill title="Command" :onRoll="(num) => {roll(num, 'Rolled command')}" :level="user.command" :setLevel="(l) => {user.command = l}" />
                                     </div>
                                     <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
                                         <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Pretend to be something or someone you are not</div>
-                                        <Skill title="Convince" :level="user.convince" :setLevel="(l) => {user.convince = l}" />
+                                        <Skill title="Convince" :onRoll="(num) => {roll(num, 'Rolled convince')}" :level="user.convince" :setLevel="(l) => {user.convince = l}" />
                                     </div>
                                     <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
                                         <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Influence opinions, preferences or beliefs</div>
-                                        <Skill title="Feign" :level="user.feign" :setLevel="(l) => {user.feign = l}" />
+                                        <Skill title="Feign" :onRoll="(num) => {roll(num, 'Rolled feign')}" :level="user.feign" :setLevel="(l) => {user.feign = l}" />
                                     </div>
                                 </div>
                                 <div class="my-8 mx-2 flex flex-col items-center">
