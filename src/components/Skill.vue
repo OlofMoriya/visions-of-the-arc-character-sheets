@@ -6,6 +6,7 @@ const props = defineProps<{
     computedLevel?: boolean,
     setLevel?: Function,
     extra?: boolean,
+    onRoll?: Function
 }>()
 
 const first = computed(()=> props.level > 0);
@@ -23,7 +24,7 @@ const setLevel = (level:number) => {
 
 <template>
     <div class="mx-2 flex gap-4 justify-between align-center items-center">
-        <div>{{title}}</div>
+        <div class="cursor-pointer" :onClick="()=>{onRoll(level + (extra ? 1 : 0))}">{{title}}</div>
         <div class="flex gap-1">
             <div v-if="props.extra" class="cursor-pointer w-4 h-4 m-1 border border-neutral-300 rounded-sm" 
                                     :class="{ ['bg-rose-600'] : fifth}"

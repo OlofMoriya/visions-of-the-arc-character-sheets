@@ -241,24 +241,24 @@ function toggleDice(){
                                 <div class="flex flex-col mt-4">
 
                                     <div class="mx-2 flex flex-col dark:bg-neutral-100 bg-neutral-800 dark:text-neutral-800 text-neutral-200">
-                                        <Skill title="Mental" :level="mental" :computedLevel="true"/>
+                                        <Skill :onRoll="(num) => {roll(num)}" title="Mental" :level="mental" :computedLevel="true"/>
                                     </div>
 
                                     <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600">
                                         <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Get a sense of value, strengths and weaknesses</div>
-                                        <Skill title="Appraise" :level="user.appraise" :setLevel="(l) => {user.appraise = l}" />
+                                        <Skill :onRoll="(num) => {roll(num)}" title="Appraise" :level="user.appraise" :setLevel="(l) => {user.appraise = l}" />
                                     </div>
                                     <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600">
                                         <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Make a logical conclusion, a precise translation</div>
-                                        <Skill title="Deduce" :level="user.deduce" :setLevel="(l) => {user.deduce = l}" />
+                                        <Skill title="Deduce" :onRoll="(num) => {roll(num)}" :level="user.deduce" :setLevel="(l) => {user.deduce = l}" />
                                     </div>
                                     <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
                                         <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Find what is hidden, a trace of who passed here before</div>
-                                        <Skill title="Locate" :level="user.locate" :setLevel="(l) => {user.locate = l}" />
+                                        <Skill title="Locate" :onRoll="(num) => {roll(num)}" :level="user.locate" :setLevel="(l) => {user.locate = l}" />
                                     </div>
                                     <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
                                         <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Become aware of threats or sense motives</div>
-                                        <Skill title="Sense" :level="user.sense" :setLevel="(l) => {user.sense = l}" />
+                                        <Skill title="Sense" :onRoll="(num) => {roll(num)}" :level="user.sense" :setLevel="(l) => {user.sense = l}" />
                                     </div>
 
                                     <div class="mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 dark:bg-neutral-100 bg-neutral-800 dark:text-neutral-800 text-neutral-200">
