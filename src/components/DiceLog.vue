@@ -67,7 +67,7 @@ const renderIconName = (num: number) => {
         </div>
         <div class="px-4 py-2 text-center cursor-pointer" :onClick="()=>{showLog = false}">Hide</div>
     </div>
-    <div v-else-if="rollsLog?.length" class="absolute left-4 top-4 ">
+    <div v-else class="absolute left-4 top-4 ">
         <div class="h-6 w-6 rounded-full cursor-pointer bg-neutral-50/80 flex items-center justify-center" :onClick="()=>{showLog = true}">
             <v-icon class="fill-black text-black" :name="renderIconName(6)"/>
         </div>

@@ -128,8 +128,9 @@ onMounted(() => {
 
 async function roll(skill: number, message?: string) {
     let num = 0;
-    switch(skill) {
-        case 0: 
+    skill = skill + loaded.value;
+    switch(skill < 1) {
+        case true: 
             num = 2;
             break;
         default: 
@@ -141,22 +142,20 @@ async function roll(skill: number, message?: string) {
     const obj = {
         character: user.name || "Unknown",
         roll: diceResults,
-        message: message ?? ("Rolled " + num + "d6" + (skill === 0 ? "for least value": "")),
+        message: (message ?? ("Rolled " + num + "d6")) + (skill === 0 ? "for least value": "") + (loaded.value != 0 ? ("loaded with " + loaded.value) : ""),
         date: Timestamp.now(),
-        outcome: skill === 0 ? Math.min(...diceResults) : Math.max(...diceResults),
+        outcome: skill < 1 ? Math.min(...diceResults) : Math.max(...diceResults),
     };
     const docRef = await addDoc(collection(db, "rolls"), obj);
     console.log("Document written with ID: ", docRef.id);
-
+    loaded.value = 0;
+}
+const loaded = ref(0);
+        
+function renderLoadedDiceName() {
+    return "bi-dice-"+Math.max(Math.min(Math.abs(loaded.value), 6), 1)+"-fill"
 }
 
-function toggleDice(){
-    showDice.value = !showDice.value;
-    if (showDice.value){
-        diceBox.show()
-        }
-        else{diceBox.hide()}
-}
 </script>
 
 <template>
@@ -165,9 +164,8 @@ function toggleDice(){
         <div class="flex gap-6 absolute top-4 right-4" >
             <div class="flex flex-col">           
                 <div class="w-8 h-8 rounded-md border cursor-pointer"  :onClick="() => {showItems = !showItems}" :class="{['bg-amber-500']:showItems}"/>Items
-                </div><div class="flex flex-col">
-                    <div class="w-8 h-8 rounded-md border cursor-pointer" :onClick="()=>{toggleDice()}" :class="{['bg-amber-500']:showDice}"/>Dice
-                    </div><div class="flex flex-col">
+                </div>
+                    <div class="flex flex-col">
                         <div class="w-8 h-8 rounded-md border cursor-pointer" :onClick="() => {showMap = !showMap}" :class="{['bg-amber-500']:showMap}" />
                             Map
                         </div><div class="flex flex-col">
@@ -185,7 +183,38 @@ function toggleDice(){
                             <div class="">
                                 <InputView placeholder="class : specialization" :value="user.class" :onChange="t => user.class = t" :editing="editing"/> 
                             </div>
-                            <div class="mx-12">X</div>
+                            <div class="mx-12">
+                                <v-icon 
+                                    :class="{
+                                        ['text-amber-300']: loaded < 0 && loaded > -4,
+                                        ['text-amber-600']: loaded < -3 && loaded > -6,
+                                        ['text-rose-600']: loaded < -5
+                                    }"
+                                    :onClick="()=>{
+                                        if (loaded == -6)
+                                            loaded = 0;
+                                        else
+                                            loaded--;
+                                    }" 
+                                    :name="renderLoadedDiceName()"
+                                    class="mt-5 w-5 h-5 cursor-pointer"
+                                    /> 
+                                <v-icon 
+                                    :class="{
+                                        ['text-emerald-300']: loaded > 0 && loaded < 4,
+                                        ['text-emerald-600']: loaded > 3 && loaded < 6,
+                                        ['text-emerald-700']: loaded > 5
+                                    }"
+                                    :onClick="()=>{
+                                        if (loaded == 6)
+                                            loaded = 0;
+                                        else
+                                            loaded++;
+                                    }" 
+                                    :name="renderLoadedDiceName()"
+                                    class="mt-5 w-5 h-5 cursor-pointer"
+                                    /> 
+                            </div>
                             <div class="">
                                 <InputView :value="user.crew" placeholder="Crew" :onChange="t => user.crew = t" :editing="editing"/> 
                             </div>
@@ -346,25 +375,11 @@ function toggleDice(){
                                     <!-- <Items :maxLoad="numberOfItems()" :setItems="(items) => user.items = items" :items="user.items"/> -->
                                 </div>
                                 <div class="my-4 mx-2 flex flex-col">
-                                    <InputView placeholder="Notes" :editing="true" textArea :onChange="t => user.notes = t" :value="user.notes"/>
+                                    <InputView :rows=6 placeholder="Notes" :editing="true" textArea :onChange="t => user.notes = t" :value="user.notes"/>
                                 </div>
                             </div>
                         </div>
                         <div class="pointer-events-none absolute top-10 left-20 right-20 ">
-                            <div v-if="showDice"> 
-                                <div >
-                                    <div class="pointer-events-auto bg-neutral-100/90 rounded-lg flex justify-between">
-                                        <div class="cursor-pointer px-4 py-1 bg-neutral-500 rounded-lg flex justify-center m-8" :onClick="()=>roll('2')">0</div>
-                                        <div class="cursor-pointer px-4 py-1 bg-neutral-500 rounded-lg flex justify-center m-8" :onClick="()=>roll('1')">1</div>
-                                        <div class="cursor-pointer px-4 py-1 bg-neutral-600 rounded-lg flex justify-center m-8" :onClick="()=>roll('2')">2</div>
-                                        <div class="cursor-pointer px-4 py-1 bg-neutral-700 rounded-lg flex justify-center m-8" :onClick="()=>roll('3')">3</div>
-                                        <div class="cursor-pointer px-4 py-1 bg-neutral-800 rounded-lg flex justify-center m-8" :onClick="()=>roll('4')">4</div>
-                                        <div class="cursor-pointer px-4 py-1 bg-neutral-800 rounded-lg flex justify-center m-8" :onClick="()=>roll('5')">5</div>
-                                    </div>
-                                </div>
-
-                            </div>
-
                             <div class=" flex h-80 w-full" id="dice-box"/>
                             </div>
 
