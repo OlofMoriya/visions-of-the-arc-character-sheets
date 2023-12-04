@@ -130,7 +130,7 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
 let diceBox: DiceBox;
 onMounted(() => {
     diceBox = new DiceBox("#dice-box", {
-      assetPath: "/public/assets/dice-box/", // required
+      assetPath: "/public/dice-box/", // required
       themeColor: '#ffffff'
     });
 
