@@ -188,20 +188,23 @@ function renderLoadedDiceName(pos: boolean) {
                             Edit
                         </div>
                     </div>
-                    <div class="flex justify-center">
+                    <div class="gap-8 flex px-8 ">
                         <div class="rounded-full w-24 h-24 overflow-clip bg-white">
-                            <img :src="'/public/'+user.id + '.jpeg'"/>
+                            <img class="w-24 h-24" :src="'/public/'+user.id + '.jpeg'"/>
                         </div>                            
-                    </div>
-                    <div class="w-full flex justify-center">
-                        <div class="flex justify-center dark:border-neutral-400 border-y-1 border-x-0 border border-neutral-600 my-4 w-3/4">
-                            <InputView noBorder :editing="editing" placeholder="name" :onChange="t => user.name = t" :value="user.name" />
+                        <div class="flex flex-col"> 
+                            <div class="">
+                                <InputView  :editing="editing" placeholder="name" :onChange="t => user.name = t" :value="user.name" />
+                            </div>
+                            <div class="">
+                                <InputView placeholder="class : specialization" :value="user.class" :onChange="t => user.class = t" :editing="editing"/> 
+                            </div>
+                            <div class="">
+                                <InputView :value="user.crew" placeholder="Crew" :onChange="t => user.crew = t" :editing="editing"/> 
+                            </div>
                         </div>
                     </div>
                     <div class="flex justify-center">
-                        <div class="">
-                            <InputView placeholder="class : specialization" :value="user.class" :onChange="t => user.class = t" :editing="editing"/> 
-                        </div>
                         <div class="mx-12">
                             <v-icon 
                                 :class="{
@@ -233,9 +236,6 @@ function renderLoadedDiceName(pos: boolean) {
                                 :name="renderLoadedDiceName(true)"
                                 class="mt-5 w-5 h-5 cursor-pointer"
                                 /> 
-                        </div>
-                        <div class="">
-                            <InputView :value="user.crew" placeholder="Crew" :onChange="t => user.crew = t" :editing="editing"/> 
                         </div>
                     </div>
                     <div class="grid grid-cols-2 lg:grid-cols-3">
@@ -297,69 +297,69 @@ function renderLoadedDiceName(pos: boolean) {
                                     <Skill :onRoll="(num) => {roll(num, 'Rolled mental')}" title="Mental" :level="mental" :computedLevel="true"/>
                                 </div>
 
-                                <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600">
+                                <div class="group relative mx-2 flex flex-col dark:border-neutral-600 border border-neutral-600">
                                     <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Get a sense of value, strengths and weaknesses</div>
                                     <Skill :onRoll="(num) => {roll(num, 'Rolled appraise')}" title="Appraise" :level="user.appraise" :setLevel="(l) => {user.appraise = l}" />
                                 </div>
-                                <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600">
+                                <div class="group relative mx-2 flex flex-col dark:border-neutral-600 border border-neutral-600">
                                     <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Make a logical conclusion, a precise translation</div>
                                     <Skill title="Deduce" :onRoll="(num) => {roll(num, 'Rolled deduce')}" :level="user.deduce" :setLevel="(l) => {user.deduce = l}" />
                                 </div>
-                                <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
+                                <div class="group relative mx-2 flex flex-col dark:border-neutral-600 border border-neutral-600 ">
                                     <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Find what is hidden, a trace of who passed here before</div>
                                     <Skill title="Locate" :onRoll="(num) => {roll(num, 'Rolled locate')}" :level="user.locate" :setLevel="(l) => {user.locate = l}" />
                                 </div>
-                                <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
+                                <div class="group relative mx-2 flex flex-col dark:border-neutral-600 border border-neutral-600 ">
                                     <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Become aware of threats or sense motives</div>
                                     <Skill title="Sense" :onRoll="(num) => {roll(num, 'Rolled sense')}" :level="user.sense" :setLevel="(l) => {user.sense = l}" />
                                 </div>
 
-                                <div class="mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 dark:bg-neutral-100 bg-neutral-800 dark:text-neutral-800 text-neutral-200">
+                                <div class="mx-2 flex flex-col dark:border-neutral-600 border border-neutral-600 dark:bg-neutral-100 bg-neutral-800 dark:text-neutral-800 text-neutral-200">
                                     <Skill title="Physical" :onRoll="(num) => {roll(num, 'Rolled physical')}" :level="physical" :computedLevel="true" extra/>
                                 </div>
-                                <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
+                                <div class="group relative mx-2 flex flex-col dark:border-neutral-600 border border-neutral-600 ">
                                     <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Slow things down, stabilize, hold something back</div>
                                     <Skill title="Control" :onRoll="(num) => {roll(num, 'Rolled control')}" :level="user.control" :setLevel="(l) => {user.control = l}" />
                                 </div>
-                                <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
+                                <div class="group relative mx-2 flex flex-col dark:border-neutral-600 border border-neutral-600 ">
                                     <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Achieve accuracy, fidelity, exactness</div>
                                     <Skill title="Finess" :onRoll="(num) => {roll(num, 'Rolled finess')}" :level="user.finess" :setLevel="(l) => {user.finess = l}" />
                                 </div>
-                                <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
+                                <div class="group relative mx-2 flex flex-col dark:border-neutral-600 border border-neutral-600 ">
                                     <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Move silently, discretely, subtly</div>
                                     <Skill title="Prowl" :onRoll="(num) => {roll(num, 'Rolled prowl')}" :level="user.prowl" :setLevel="(l) => {user.prowl = l}" />
                                 </div>
-                                <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
+                                <div class="group relative mx-2 flex flex-col dark:border-neutral-600 border border-neutral-600 ">
                                     <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Cause chaos, destruction and damage</div>
                                     <Skill title="Wreck" :onRoll="(num) => {roll(num, 'Rolled wreck')}" :level="user.wreck" :setLevel="(l) => {user.wreck = l}" />
                                 </div>
-                                <div class="mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 dark:bg-neutral-100 bg-neutral-800 dark:text-neutral-800 text-neutral-200">
+                                <div class="mx-2 flex flex-col dark:border-neutral-600 border border-neutral-600 dark:bg-neutral-100 bg-neutral-800 dark:text-neutral-800 text-neutral-200">
                                     <Skill title="Social" :onRoll="(num) => {roll(num, 'Rolled social')}" :level="social" :computedLevel="true" />
                                 </div>
-                                <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
+                                <div class="group relative mx-2 flex flex-col dark:border-neutral-600 border border-neutral-600 ">
                                     <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Capture the attention, distract, entertain, disgust or attract</div>
                                     <Skill title="Captivate" :onRoll="(num) => {roll(num, 'Rolled captivate')}" :level="user.captivate" :setLevel="(l) => {user.captivate = l}" />
                                 </div>
-                                <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
+                                <div class="group relative mx-2 flex flex-col dark:border-neutral-600 border border-neutral-600 ">
                                     <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Ensure subordination based on fear or loyalty</div>
                                     <Skill title="Command" :onRoll="(num) => {roll(num, 'Rolled command')}" :level="user.command" :setLevel="(l) => {user.command = l}" />
                                 </div>
-                                <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
+                                <div class="group relative mx-2 flex flex-col dark:border-neutral-600 border border-neutral-600 ">
                                     <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Pretend to be something or someone you are not</div>
                                     <Skill title="Convince" :onRoll="(num) => {roll(num, 'Rolled convince')}" :level="user.convince" :setLevel="(l) => {user.convince = l}" />
                                 </div>
-                                <div class="group relative mx-2 flex flex-col dark:border-neutral-400 border border-neutral-600 ">
+                                <div class="group relative mx-2 flex flex-col dark:border-neutral-600 border border-neutral-600 ">
                                     <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Influence opinions, preferences or beliefs</div>
                                     <Skill title="Feign" :onRoll="(num) => {roll(num, 'Rolled feign')}" :level="user.feign" :setLevel="(l) => {user.feign = l}" />
                                 </div>
                             </div>
-                                <div class="my-8 mx-2 flex flex-col items-center">
-                                    <div class="font-bold border-b-1 border-b text-center w-4/5 border-neutral-300">Xp triggers</div>
-                                    <GenericLevel :level="user.physicalXp" :setLevel="(l) => user.physicalXp = l" :maxLevel="6" title="Physical"/>
-                                    <GenericLevel :level="user.mentalXp" :setLevel="(l) => user.mentalXp = l" :maxLevel="6" title="Mental"/>
-                                    <GenericLevel :level="user.socialXp" :setLevel="(l) => user.socialXp = l" :maxLevel="6" title="Social"/>
-                                    <GenericLevel :level="user.struggleOrExpress" :setLevel="(l) => user.struggleOrExpress = l" :maxLevel="8" title="Special ability" :breakAt="6"/>
+                                <div class="my-4 mx-2 flex flex-col">
+                                    <GenericLevel :level="user.loadLevel" :setLevel="(l) => user.loadLevel = l" title="Loadout" :maxLevel="4" :breakAt="4"/>
+                                    <div class="gap-1 grid col-span-2">
+                                        <input v-for="(i, index) in load" :key="index" class="w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="getLoadIndex(index)" placeholder="" @input="e => setLoadIndex(index, e.target.value)"/> 
+                                    </div>
 
+                                    <!-- <Items :maxLoad="numberOfItems()" :setItems="(items) => user.items = items" :items="user.items"/> -->
                                 </div>
                                 <div class="my-1 mx-2 flex justify-center gap-2">
                                     <div class="flex flex-col">
@@ -382,15 +382,16 @@ function renderLoadedDiceName(pos: boolean) {
                                     <InputView placeholder="Special Items" :onChange="t => user.specialItems = t" :editing="editing" textArea :value="user.specialItems"/> 
                                     <InputView placeholder="Crafting" :onChange="t => user.crafting = t" :editing="editing" textArea :value="user.crafting"/> 
                                 </div>
-                                <div class="my-4 mx-2 flex flex-col">
-                                    <GenericLevel :level="user.loadLevel" :setLevel="(l) => user.loadLevel = l" title="Loadout" :maxLevel="4" :breakAt="4"/>
-                                    <div class="gap-1 grid col-span-2">
-                                        <input v-for="(i, index) in load" :key="index" class="w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="getLoadIndex(index)" placeholder="" @input="e => setLoadIndex(index, e.target.value)"/> 
-                                    </div>
+                                <div class="my-8 mx-2 flex flex-col items-center">
+                                    <div class="font-bold border-b-1 border-b text-center w-4/5 border-neutral-300">Xp triggers</div>
+                                    <GenericLevel :level="user.physicalXp" :setLevel="(l) => user.physicalXp = l" :maxLevel="6" title="Physical"/>
+                                    <GenericLevel :level="user.mentalXp" :setLevel="(l) => user.mentalXp = l" :maxLevel="6" title="Mental"/>
+                                    <GenericLevel :level="user.socialXp" :setLevel="(l) => user.socialXp = l" :maxLevel="6" title="Social"/>
+                                    <GenericLevel :level="user.struggleOrExpress" :setLevel="(l) => user.struggleOrExpress = l" :maxLevel="8" title="Special ability" :breakAt="6"/>
 
-                                    <!-- <Items :maxLoad="numberOfItems()" :setItems="(items) => user.items = items" :items="user.items"/> -->
                                 </div>
-                                <div class="my-4 mx-2 flex flex-col">
+                                <div class="my-4 mx-2 flex flex-col items-center">
+                                    <div class="font-bold border-b-1 border-b mb-2 text-center w-4/5 border-neutral-300">Notes</div>
                                     <InputView :rows=6 placeholder="Notes" :editing="true" textArea :onChange="t => user.notes = t" :value="user.notes"/>
                                 </div>
                             </div>
