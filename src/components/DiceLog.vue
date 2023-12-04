@@ -25,9 +25,7 @@
     if (timeout) clearTimeout(timeout);
 
     timeout = setTimeout(()=>{
-        console.log("timed out"); 
         showLog.value = false;
-
         }, 10000);
     });
 
