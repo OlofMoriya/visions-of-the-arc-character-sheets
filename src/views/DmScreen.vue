@@ -53,32 +53,31 @@ async function roll(num: number, message?: string) {
 
 
 </script>
-
 <template>
   <div class="p-8">
-        <DiceLog :onRoll="(num)=>{roll(num)}" :onClose="()=>{diceBox.hide()}"/>
-      <div class="gap-4 flex flex-col">
-        <div v-for="character in characters" :key="character.id">
-            <div class="flex gap-4">
-                <div class="w-20 h-20 rounded-full overflow-clip">
-                    <img :src="'/'+character.id+'.jpeg'">
-                </div>
-                <div class="flex flex-col">
-                    <div class="">
-                        {{character.name}}
-                    </div>
-                    <GenericLevel title="Stress" :level="character.stress" :maxLevel="10" :setLevel="(l) => {}"/>
-                    <GenericLevel title="Loadout" :level="character.loadLevel" :maxLevel="4" :setLevel="(l) => {}"/>
-                    <div v-if="character.load" class="w-full h-8 text-neutral-400">{{character.load.filter(l=>l!==" "&&l).join(", ")}}</div> 
-                    <div v-if="getHarm(character)" class="w-full h-8 text-neutral-400">{{getHarm(character)}}</div> 
-                    <div v-if="character.trauma" class="w-full h-8">Trauma: {{character.trauma}}</div> 
-                </div>
-            </div>
-        </div>
+      <DiceLog :onRoll="(num)=>{roll(num)}" :onClose="()=>{diceBox.hide()}"/>
+      <div class="gap-4 flex flex-col-reverse">
+          <div v-for="character in characters" :key="character.id">
+              <div class="flex gap-4">
+                  <div class="w-20 h-20 rounded-full overflow-clip">
+                      <img :src="'/'+character.id+'.jpeg'">
+                  </div>
+                  <div class="flex flex-col">
+                      <div class="">
+                          {{character.name}}
+                      </div>
+                      <GenericLevel title="Stress" :level="character.stress" :maxLevel="10" :setLevel="(l) => {}"/>
+                      <GenericLevel title="Loadout" :level="character.loadLevel" :maxLevel="4" :setLevel="(l) => {}"/>
+                      <div v-if="character.load" class="w-full h-8 text-neutral-400">{{character.load.filter(l=>l!==" "&&l).join(", ")}}</div> 
+                      <div v-if="getHarm(character)" class="w-full h-8 text-neutral-400">{{getHarm(character)}}</div> 
+                      <div v-if="character.trauma" class="w-full h-8">Trauma: {{character.trauma}}</div> 
+                  </div>
+              </div>
+          </div>
       </div>
-                        <div class="pointer-events-none absolute top-10 left-20 right-20 ">
-                            <div class=" flex h-80 w-full" id="dice-box"/>
-                        </div>
-  </div>
+      <div class="pointer-events-none absolute top-10 left-20 right-20 ">
+          <div class=" flex h-80 w-full" id="dice-box"/>
+          </div>
+      </div>
 </template>
 
