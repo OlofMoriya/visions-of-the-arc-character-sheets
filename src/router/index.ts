@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import CharacterSheet from '../views/CharacterSheet.vue'
+import DmScreen from '../views/DmScreen.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,6 +9,11 @@ const router = createRouter({
       path: '/',
       name: 'sheet',
       component: CharacterSheet
+    },
+    {
+      path: '/dm',
+      name: 'dm-screen',
+      component: DmScreen
     },
     {
       path: '/items',

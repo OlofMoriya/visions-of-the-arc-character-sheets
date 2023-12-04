@@ -101,11 +101,18 @@ watchEffect(async ()=>{
         saveUser();
 });
 
+let saveUserTimer;
 async function saveUser(){
+    
     console.log("id", user.id);
+    if (saveUserTimer)
+        window.clearTimeout(saveUserTimer);
+        
+    saveUserTimer = window.setTimeout(async ()=>{
     const docRef = await setDoc(doc(db, "characters", user.id), user);
     
     console.log("updated user", docRef);
+    }, 500);
 }
 
 const getLoadIndex = (index:  number) => user.load[index] || '';
@@ -147,6 +154,7 @@ async function roll(skill: number, message?: string) {
     const diceResults = result.map((r: { value: any; }) => r.value);
     const obj = {
         character: user.name || "Unknown",
+        character_id: user.id, 
         roll: diceResults,
         message: (message ?? ("Rolled " + num + "d6")) + (skill === 0 ? " for least value": "") + (loaded.value != 0 ? (" loaded with " + loaded.value) : ""),
         date: Timestamp.now(),
