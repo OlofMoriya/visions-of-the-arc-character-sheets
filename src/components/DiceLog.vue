@@ -5,7 +5,8 @@
     import { ref } from "vue";
 
     const props = defineProps<{
-        onRoll?: Function
+        onRoll?: Function,
+        onClose?: Function
     }>()
 
     let rollsLog = ref([]);
@@ -34,6 +35,7 @@ const renderIconName = (num: number) => {
     const name = "bi-dice-"+num+"-fill";
     return name;
 }
+
 </script>
 
 <template>
@@ -65,7 +67,7 @@ const renderIconName = (num: number) => {
                 </div>
             </div>
         </div>
-        <div class="px-4 py-2 text-center cursor-pointer" :onClick="()=>{showLog = false}">Hide</div>
+        <div class="px-4 py-2 text-center cursor-pointer" :onClick="()=>{showLog = false; onClose?.() }">Hide</div>
     </div>
     <div v-else class="absolute left-4 top-4 ">
         <div class="h-6 w-6 rounded-full cursor-pointer bg-neutral-50/80 flex items-center justify-center" :onClick="()=>{showLog = true}">

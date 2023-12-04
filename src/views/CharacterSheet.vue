@@ -123,6 +123,7 @@ let diceBox: DiceBox;
 onMounted(() => {
     diceBox = new DiceBox("#dice-box", {
       assetPath: "/public/assets/dice-box/", // required
+      themeColor: '#ffffff'
     });
 
     diceBox.init().then(() => {
@@ -168,7 +169,7 @@ function renderLoadedDiceName(pos: boolean) {
 
 <template>
     <main class="mr-6 dark:bg-neutral-900 dark:text-neutral-200 rounded-sm bg-neutral-50 pt-20 h-full relative">
-        <DiceLog :onRoll="(num)=>{roll(num)}"/>
+        <DiceLog :onRoll="(num)=>{roll(num)}" :onClose="()=>{diceBox.hide()}"/>
         <div class="flex gap-6 absolute top-4 right-4" >
             <div class="flex flex-col">           
                 <div class="w-8 h-8 rounded-md border cursor-pointer"  :onClick="() => {showItems = !showItems}" :class="{['bg-amber-500']:showItems}"/>Items
