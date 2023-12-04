@@ -219,7 +219,7 @@ function renderLoadedDiceName(pos: boolean) {
                                         loaded--;
                                 }" 
                                 :name="renderLoadedDiceName(false)"
-                                class="mt-5 w-5 h-5 cursor-pointer"
+                                class="mt-5 w-6 h-6 cursor-pointer"
                                 /> 
                             <v-icon 
                                 :class="{
@@ -234,7 +234,7 @@ function renderLoadedDiceName(pos: boolean) {
                                         loaded++;
                                 }" 
                                 :name="renderLoadedDiceName(true)"
-                                class="mt-5 w-5 h-5 cursor-pointer"
+                                class="mt-5 w-6 h-6 cursor-pointer"
                                 /> 
                         </div>
                     </div>
@@ -246,7 +246,7 @@ function renderLoadedDiceName(pos: boolean) {
                                 <InputView placeholder="Heritage" :value="user.heritage" :onChange="t => user.heritage = t" :editing="editing"/> 
                                 <InputView placeholder="Vice" :value="user.vice" :onChange="t => user.vice = t" :editing="editing"/> 
                             </div> 
-                            <div class="my-4 mx-2 flex items-center flex-col ">
+                            <div class="my-2 mx-2 flex items-center flex-col ">
                                 <div class="font-bold border-b-1 border-b text-center w-4/5 border-neutral-300">Virtues</div>
                                 <Virtue titleLeft="Humility" :levelLeft="user.humility" :setLevelLeft="(l) => user.humility = l" titleRight="Ambition" :levelRight="user.ambition" :setLevelRight="(l) => user.ambition = l" :activeLevelLeft="user.activeHumility" :setActiveLevelLeft="(l) => user.activeHumility = l" :activeLevelRight="user.activeAmbition" :setActiveLevelRight="(l) => user.activeambition = l" :editing="editing"/>
                                 <Virtue titleLeft="Honesty" :levelLeft="user.honesty" :setLevelLeft="(l) => user.honesty = l" titleRight="Creativity" :levelRight="user.creativity" :setLevelRight="(l) => user.creativity = l" :activeLevelLeft="user.activeHonesty" :setActiveLevelLeft="(l) => user.activeHonesty = l" :activeLevelRight="user.activeCreativity" :setActiveLevelRight="(l) => user.activeCreativity = l" :editing="editing"/>
@@ -382,7 +382,7 @@ function renderLoadedDiceName(pos: boolean) {
                                     <InputView placeholder="Special Items" :onChange="t => user.specialItems = t" :editing="editing" textArea :value="user.specialItems"/> 
                                     <InputView placeholder="Crafting" :onChange="t => user.crafting = t" :editing="editing" textArea :value="user.crafting"/> 
                                 </div>
-                                <div class="my-8 mx-2 flex flex-col items-center">
+                                <div class="my-2 mx-2 flex flex-col items-center">
                                     <div class="font-bold border-b-1 border-b text-center w-4/5 border-neutral-300">Xp triggers</div>
                                     <GenericLevel :level="user.physicalXp" :setLevel="(l) => user.physicalXp = l" :maxLevel="6" title="Physical"/>
                                     <GenericLevel :level="user.mentalXp" :setLevel="(l) => user.mentalXp = l" :maxLevel="6" title="Mental"/>
