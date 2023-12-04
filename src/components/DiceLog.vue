@@ -50,7 +50,7 @@ const renderIconName = (num: number) => {
             <div class="p-2 border-b border-neutral-800">
                 <div class="flex gap-2">
                     <div class="w-12 h-12 rounded-full overflow-clip">
-                        <img :src="'/public/'+roll.character_id+'.jpeg'"/>
+                        <img :src="'/'+roll.character_id+'.jpeg'"/>
                     </div>
                     <div>
                         <div class="font-bold">{{roll.character}}</div>

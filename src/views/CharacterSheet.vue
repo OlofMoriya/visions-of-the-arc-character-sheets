@@ -130,7 +130,7 @@ const load = computed(()=>Array.from({ length: 1 + user.loadLevel*2}, (value, in
 let diceBox: DiceBox;
 onMounted(() => {
     diceBox = new DiceBox("#dice-box", {
-      assetPath: "/public/dice-box/", // required
+      assetPath: "/dice-box/", // required
       themeColor: '#ffffff'
     });
 
@@ -198,7 +198,7 @@ function renderLoadedDiceName(pos: boolean) {
                     </div>
                     <div class="gap-8 flex px-8 ">
                         <div class="rounded-full w-24 h-24 overflow-clip bg-white">
-                            <img class="w-24 h-24" :src="'/public/'+user.id + '.jpeg'"/>
+                            <img class="w-24 h-24" :src="'/'+user.id + '.jpeg'"/>
                         </div>                            
                         <div class="flex flex-col"> 
                             <div class="">
