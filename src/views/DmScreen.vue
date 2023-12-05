@@ -50,8 +50,6 @@ async function roll(num: number, message?: string) {
     console.log("Document written with ID: ", docRef.id);
 }
 
-
-
 </script>
 <template>
   <div class="p-8">
@@ -65,6 +63,9 @@ async function roll(num: number, message?: string) {
                   <div class="flex flex-col">
                       <div class="">
                           {{character.name}}
+                      </div>
+                      <div class="hidden">
+                          {{character.id}}
                       </div>
                       <GenericLevel title="Stress" :level="character.stress" :maxLevel="10" :setLevel="(l) => {}"/>
                       <GenericLevel title="Loadout" :level="character.loadLevel" :maxLevel="4" :setLevel="(l) => {}"/>
