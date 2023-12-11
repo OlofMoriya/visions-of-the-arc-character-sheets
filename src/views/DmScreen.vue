@@ -54,8 +54,8 @@ async function roll(num: number, message?: string) {
 <template>
   <div class="p-8">
       <DiceLog :onRoll="(num)=>{roll(num)}" :onClose="()=>{diceBox.hide()}"/>
-      <div class="gap-4 flex flex-col-reverse">
-          <div v-for="character in characters" :key="character.id">
+      <div class="gap-4 flex flex-col-reverse items-center mt-8">
+          <div class="mb-8" v-for="character in characters" :key="character.id">
               <div class="flex gap-4">
                   <div class="w-20 h-20 rounded-full overflow-clip">
                       <img :src="'/'+character.id+'.jpeg'">

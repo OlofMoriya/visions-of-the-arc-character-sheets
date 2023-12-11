@@ -1,44 +1,48 @@
-<script setup lang="ts">
-    import { computed } from 'vue';
-const props = defineProps<{
-    titleLeft: string,
-    titleRight: string,
-    levelLeft: number,
-    levelRight: number,
-    setLevelLeft: Function,
-    setLevelRight: Function,
-    activeLevelLeft: number,
-    activeLevelRight: number,
-    setActiveLevelLeft: Function,
-    setActiveLevelRight: Function,
-    editing: boolean,
-}>()
+<script lang="ts">
+    import { computed, defineProps } from 'vue';
+    export default {
+        props: ['titleLeft', 'titleRight', 'levelLeft', 'levelRight', 'setLevelLeft', 'setLevelRight', 'activeLevelLeft', 'activeLevelRight', 'setActiveLevelLeft', 'setActiveLevelRight', 'editing', ],
+        setup(props: {
+                titleLeft: string,
+                titleRight: string,
+                levelLeft: number,
+                levelRight: number,
+                setLevelLeft: Function,
+                setLevelRight: Function,
+                activeLevelLeft: number,
+                activeLevelRight: number,
+                setActiveLevelLeft: Function,
+                setActiveLevelRight: Function,
+                editing: boolean,
+            }) {
 
-const first = computed(()=> props.levelLeft > 0);
-const second = computed(()=> props.levelLeft > 1);
-const third = computed(()=> props.levelRight > 0);
-const forth = computed(()=> props.levelRight > 1);
-const activeFirst = computed(()=> props.activeLevelLeft > 0);
-const activeSecond = computed(()=> props.activeLevelLeft > 1);
-const activeThird = computed(()=> props.activeLevelRight > 0);
-const activeForth = computed(()=> props.activeLevelRight > 1);
-const setLevelLeft = (level:number) => {
-        if (props.editing){
-            props.setLevelLeft(level);
+            const first = computed(()=> props.levelLeft > 0);
+            const second = computed(()=> props.levelLeft > 1);
+            const third = computed(()=> props.levelRight > 0);
+            const forth = computed(()=> props.levelRight > 1);
+            const activeFirst = computed(()=> props.activeLevelLeft > 0);
+            const activeSecond = computed(()=> props.activeLevelLeft > 1);
+            const activeThird = computed(()=> props.activeLevelRight > 0);
+            const activeForth = computed(()=> props.activeLevelRight > 1);
+            const setLevelLeft = (level:number) => {
+                    if (props.editing){
+                        props.setLevelLeft(level);
+                    }
+                    else if (level <= props.levelLeft) {
+                        props.setActiveLevelLeft(level);
+                    }
+            };
+            const setLevelRight = (level:number) => {
+                    if (props.editing){
+                        props.setLevelRight(level);
+                    }
+                    else if (level <= props.levelRight) {
+                        props.setActiveLevelRight(level);
+                    }
+            };
+            return {  setLevelRight, setLevelLeft, first, second, third, forth, activeFirst, activeSecond, activeThird, activeForth }
         }
-        else if (level <= props.levelLeft) {
-            props.setActiveLevelLeft(level);
-        }
-};
-const setLevelRight = (level:number) => {
-        if (props.editing){
-            props.setLevelRight(level);
-        }
-        else if (level <= props.levelRight) {
-            props.setActiveLevelRight(level);
-        }
-};
-
+    }
 </script>
 
 <template>

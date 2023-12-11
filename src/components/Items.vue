@@ -1,12 +1,12 @@
 <script setup lang="ts">
     import { computed } from 'vue';
-const props = defineProps<{
-    items: Array<Object>,
-    setItems: Function,
-    maxLoad: number,
-}>()
-
-const setItems = () => {
+    export default {
+        props:['items', 'setItems', 'maxLoad', ],
+        setup(props: {
+            items: Array<Object>,
+            setItems: Function,
+            maxLoad: number,
+        }){}
 };
 
 </script>

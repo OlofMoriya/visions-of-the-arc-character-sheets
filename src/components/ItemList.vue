@@ -1,5 +1,10 @@
-<script setup lang="ts">
-import items from '../data/items.json';
+<script lang="ts">
+    import items from '../data/items.json';
+    export default {
+        setup(){
+            return {items};
+        }
+    }
 </script>
 
 <template>
@@ -9,11 +14,11 @@ import items from '../data/items.json';
         <div class="col-span-3 font-bold">Name</div>
         <div class="col-span-8 font-bold">Description</div>
         <div class="col-span-12 font-bold"></div>
-    <template v-for="(item, index) in items" :key="index">
-        <div class="col-span-1">{{item.load}}</div>
-        <div class="col-span-3">{{item.name}}</div>
-        <div class="col-span-8">{{item.description}}</div>
-    </template>
+        <template v-for="(item, index) in items" :key="index">
+            <div class="col-span-1">{{item.load}}</div>
+            <div class="col-span-3">{{item.name}}</div>
+            <div class="col-span-8">{{item.description}}</div>
+        </template>
     </div>
 </template>
 

@@ -1,39 +1,43 @@
-<script setup lang="ts">
+<script lang="ts">
     import { onSnapshot, query, collection, where, Timestamp, limit, orderBy } from "firebase/firestore";
     import { db } from "../firebase";
-
     import { ref } from "vue";
 
-    const props = defineProps<{
-        onRoll?: Function,
-        onClose?: Function
-    }>()
+    export default {
+        props:['onRoll', 'onClose'],
+        setup(props:{
+            onRoll?: Function,
+            onClose?: Function
+        }){
 
-    let rollsLog = ref([]);
-    let timeout;
-    let showLog = ref(false);
+            let rollsLog = ref([]);
+            let timeout: string|number|NodeJS.Timeout;
+            let showLog = ref(false);
 
-    const unsub = onSnapshot(query(collection(db, 'rolls'), where("date", ">", Timestamp.now()), orderBy("date", "desc"), limit(8)), (snapshot) => {
-        const log = [];
-        snapshot.forEach(doc => {
-            log.push(doc.data());
-        });
-        rollsLog.value = log;
-        if (log.length > 0)
-            showLog.value = true;
+            const unsub = onSnapshot(query(collection(db, 'rolls'), where("date", ">", Timestamp.now()), orderBy("date", "desc"), limit(8)), (snapshot) => {
+                const log = [];
+                snapshot.forEach(doc => {
+                    log.push(doc.data());
+                });
+                rollsLog.value = log;
+                if (log.length > 0)
+                    showLog.value = true;
 
-        if (timeout) clearTimeout(timeout);
+                if (timeout) clearTimeout(timeout);
 
-        timeout = setTimeout(()=>{
-            showLog.value = false;
-            }, 10000);
-    });
+                timeout = setTimeout(()=>{
+                    showLog.value = false;
+                    }, 10000);
+            });
 
-const renderIconName = (num: number) => {
-    const name = "bi-dice-"+num+"-fill";
-    return name;
-}
+            const renderIconName = (num: number) => {
+                const name = "bi-dice-"+num+"-fill";
+                return name;
+            }
 
+            return {renderIconName, showLog, rollsLog};
+        }
+    }
 </script>
 
 <template>

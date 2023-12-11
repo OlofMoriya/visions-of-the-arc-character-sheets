@@ -93,25 +93,26 @@ const user = reactive({
     specialArmourToggle: ref(parsedUser.specialArmourToggle ?? null),
     });
 
-watchEffect(async ()=>{
-    console.log('saving', user.name, user.class, user.crew, user.cover, user.looks, user.heritage, user.vice, user.deduce, user.sense, user.locate, user.appraise, user.control, user.finess, user.prowl, user.wreck, user.captivate, user.command, user.convince, user.feign, user.humility, user.ambition, user.honesty, user.creativity, user.justice, user.mercy, user.dignity, user.tolerance, user.bravery, user.caution, user.curiosity, user.loyalty, user.stress, user.mentalXp, user.physicalXp, user.socialXp, user.struggleOrExpress, user.heal, user.heal, user.trauma, user.harm3, user.harm21, user.harm22, user.harm11, user.harm12, user.specialSkills, user.specialItems, user.loadLevel, user.coin, user.stash, user.specialArmour, user.crafting, user.specialArmourToggle, user.notes);
+    onMounted(()=>{
+        watchEffect(async ()=>{
+            console.log('saving', user.name, user.class, user.crew, user.cover, user.looks, user.heritage, user.vice, user.deduce, user.sense, user.locate, user.appraise, user.control, user.finess, user.prowl, user.wreck, user.captivate, user.command, user.convince, user.feign, user.humility, user.ambition, user.honesty, user.creativity, user.justice, user.mercy, user.dignity, user.tolerance, user.bravery, user.caution, user.curiosity, user.loyalty, user.stress, user.mentalXp, user.physicalXp, user.socialXp, user.struggleOrExpress, user.heal, user.heal, user.trauma, user.harm3, user.harm21, user.harm22, user.harm11, user.harm12, user.specialSkills, user.specialItems, user.loadLevel, user.coin, user.stash, user.specialArmour, user.crafting, user.specialArmourToggle, user.notes);
 
-    localStorage.setItem("user", JSON.stringify(user));
-    if (user.name)
-        saveUser();
-});
+            localStorage.setItem("user", JSON.stringify(user));
+            if (user.name)
+                saveUser();
+        });
+    });
 
-let saveUserTimer;
-async function saveUser(){
-    
-    console.log("id", user.id);
-    if (saveUserTimer)
-        window.clearTimeout(saveUserTimer);
+    let saveUserTimer: number;
+    async function saveUser(){
+        console.log("id", user.id);
+        if (saveUserTimer)
+            window.clearTimeout(saveUserTimer);
+            
+        saveUserTimer = window.setTimeout(async ()=>{
+        const docRef = await setDoc(doc(db, "characters", user.id), user);
         
-    saveUserTimer = window.setTimeout(async ()=>{
-    const docRef = await setDoc(doc(db, "characters", user.id), user);
-    
-    console.log("updated user", docRef);
+        console.log("updated user", docRef);
     }, 500);
 }
 
@@ -412,7 +413,7 @@ function renderLoadedDiceName(pos: boolean) {
                             <img :src="hellazgo_map"/>
                         </div>
 
-                        <div v-if="showItems" class="w-full md:w-3/4 p-8">
+                        <div v-if="showItems" class="bg-neutral-50/90 dark:bg-neutral-900/90 w-full absolute top-0 right-30 md:w-3/4 p-8">
                             <ItemList/>
                         </div>
 

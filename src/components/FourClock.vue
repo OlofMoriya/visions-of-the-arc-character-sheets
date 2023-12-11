@@ -1,15 +1,16 @@
-
-
-<script setup lang="ts">
-    import { computed } from 'vue';
-const props = defineProps<{
-    level: number,
-    setLevel: Function,
-}>()
-const setLevel = (level:number) => {
-console.log('set heal', level);
-        props.setLevel(level);
-};
+<script lang="ts">
+    export default {
+        props: ['level', 'setLevel'],
+        setup(props:{
+            level: number,
+            setLevel: Function,
+        }){
+            const setLevel = (level:number) => {
+                props.setLevel(level);
+            };
+            return {setLevel};
+        }
+    }
 </script>
 
 <template>
