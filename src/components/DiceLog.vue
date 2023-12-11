@@ -4,10 +4,11 @@
     import { ref } from "vue";
 
     export default {
-        props:['onRoll', 'onClose'],
+        props:['onRoll', 'onClose', 'alwaysDisplay'],
         setup(props:{
             onRoll?: Function,
-            onClose?: Function
+            onClose?: Function,
+            alwaysDisplay?: boolean
         }){
 
             let rollsLog = ref([]);
@@ -26,7 +27,9 @@
                 if (timeout) clearTimeout(timeout);
 
                 timeout = setTimeout(()=>{
-                    showLog.value = false;
+                    if (!props.alwaysDisplay){
+                        showLog.value = false;
+                    }
                     }, 10000);
             });
 
@@ -42,7 +45,7 @@
 
 <template>
     <div v-if="showLog" class="bg-neutral-200/90 text-neutral-600 rounded-b-lg p-4 absolute left-4 top-0 w-200 flex flex-col">
-        <div class="flex py-2 px-2 justify-between">
+        <div v-if="onRoll" class="flex py-2 px-2 justify-between">
             <v-icon 
                 class="w-6 h-6 cursor-pointer" 
                 v-for="i in [1,2,3,4,5,6]" 
@@ -76,7 +79,7 @@
                 </div>
             </div>
         </div>
-        <div class="px-4 py-2 text-center cursor-pointer" :onClick="()=>{showLog = false; onClose?.() }">Hide</div>
+        <div v-if="onClose" class="px-4 py-2 text-center cursor-pointer" :onClick="()=>{showLog = false; onClose?.() }">Hide</div>
     </div>
     <div v-else class="absolute left-4 top-4 ">
         <div class="h-6 w-6 rounded-full cursor-pointer bg-neutral-50/80 flex items-center justify-center" :onClick="()=>{showLog = true}">
