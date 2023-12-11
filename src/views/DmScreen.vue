@@ -18,7 +18,7 @@
         characters.value = c;
     });
 
-    const getHarm = (c) => {
+    const getHarm = (c: { harm11: any; harm12: any; harm21: any; harm22: any; harm3: any; }) => {
         return [c.harm11, c.harm12, c.harm21, c.harm22, c.harm3].filter(h=>h!=""&&h).join(", ");
     }
 

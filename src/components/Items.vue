@@ -1,5 +1,4 @@
-<script setup lang="ts">
-    import { computed } from 'vue';
+<script lang="ts">
     export default {
         props:['items', 'setItems', 'maxLoad', ],
         setup(props: {
@@ -18,8 +17,8 @@
             <div v-for="(i) in items" 
                  class="cursor-pointer w-4 h-4 m-1 border border-neutral-500 rounded-sm" 
                  :key="i"
-                 :class="{ ['bg-amber-600'] : (i + 1) <= props.level }"
-                 :onClick="() => {i+1 === props.level ? setLevel(i) : setLevel(i+1)}"
+                 :class="{ ['bg-amber-600'] : (i + 1) <= level }"
+                 :onClick="() => {i+1 === level ? setLevel(i) : setLevel(i+1)}"
             />
         </div>
     </div>
