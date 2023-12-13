@@ -20,7 +20,7 @@
 
 <template>
   <div class="p-2">
-      <DiceLog :alwaysDisplay="true" />
+      <DiceLog :limit="20"/>
   </div>
   <div class="pointer-events-none absolute top-10 left-20 right-20 ">
       <div class=" flex h-80 w-full" id="dice-box"/>

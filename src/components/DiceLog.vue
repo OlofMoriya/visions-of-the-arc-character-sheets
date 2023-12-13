@@ -4,33 +4,22 @@
     import { ref } from "vue";
 
     export default {
-        props:['onRoll', 'onClose', 'alwaysDisplay'],
+        props:['onUpdate', 'limit', 'showLog'],
         setup(props:{
-            onRoll?: Function,
-            onClose?: Function,
-            alwaysDisplay?: boolean
+            onUpdate?: Function,
+            limit?: number
+            showLog?: boolean
         }){
-
             let rollsLog = ref([]);
-            let timeout: string|number|NodeJS.Timeout;
-            let showLog = ref(false);
-
-            const unsub = onSnapshot(query(collection(db, 'rolls'), where("date", ">", Timestamp.now()), orderBy("date", "desc"), limit(8)), (snapshot) => {
+            const unsub = onSnapshot(query(collection(db, 'rolls'), where("date", ">", Timestamp.now()), orderBy("date", "desc"), limit(props.limit ?? 8)), (snapshot) => {
                 const log = [];
                 snapshot.forEach(doc => {
                     log.push(doc.data());
                 });
                 rollsLog.value = log;
                 if (log.length > 0)
-                    showLog.value = true;
+                    props.onUpdate?.()
 
-                if (timeout) clearTimeout(timeout);
-
-                timeout = setTimeout(()=>{
-                    if (!props.alwaysDisplay){
-                        showLog.value = false;
-                    }
-                    }, 10000);
             });
 
             const renderIconName = (num: number) => {
@@ -38,21 +27,14 @@
                 return name;
             }
 
-            return {renderIconName, showLog, rollsLog};
+            return {renderIconName, rollsLog};
         }
     }
+
 </script>
 
 <template>
-    <div v-if="showLog" class="bg-neutral-200/90 text-neutral-600 rounded-b-lg p-4 absolute left-4 top-0 w-200 flex flex-col">
-        <div v-if="onRoll" class="flex py-2 px-2 justify-between">
-            <v-icon 
-                class="w-6 h-6 cursor-pointer" 
-                v-for="i in [1,2,3,4,5,6]" 
-                :key="'custom-roll'+i" 
-                :name="renderIconName(i)" 
-                :onClick="()=>{onRoll?.(i)}"/>
-        </div>
+    <div v-if="showLog" class="w-full dark:bg-neutral-800 dark:text-neutral-200 bg-neutral-200/90 text-neutral-600 rounded-b-lg p-4 flex flex-col">
         <div v-for="(roll,i) in rollsLog" :key="i">
             <div class="p-2 border-b border-neutral-800">
                 <div class="flex gap-2">
@@ -78,12 +60,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div v-if="onClose" class="px-4 py-2 text-center cursor-pointer" :onClick="()=>{showLog = false; onClose?.() }">Hide</div>
-    </div>
-    <div v-else class="absolute left-4 top-4 ">
-        <div class="h-6 w-6 rounded-full cursor-pointer bg-neutral-50/80 flex items-center justify-center" :onClick="()=>{showLog = true}">
-            <v-icon class="fill-black text-black" :name="renderIconName(6)"/>
         </div>
     </div>
 </template>

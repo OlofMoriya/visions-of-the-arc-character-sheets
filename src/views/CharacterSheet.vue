@@ -13,7 +13,7 @@ import DiceBox from "@3d-dice/dice-box";
 import { BiDice1Fill } from 'oh-vue-icons/icons';
 import { setDoc, addDoc, collection, doc, onSnapshot, query, Timestamp, where } from "firebase/firestore";
 import {db} from "../firebase"
-import DiceLog from '../components/DiceLog.vue';
+import DiceFoldout from '../components/DiceFoldout.vue';
 
 
 let editing = ref(false);
@@ -179,7 +179,7 @@ function renderLoadedDiceName(pos: boolean) {
 
 <template>
     <main class="mr-6 dark:bg-neutral-900 dark:text-neutral-200 rounded-sm bg-neutral-50 pt-20 h-full relative">
-        <DiceLog :onRoll="(num)=>{roll(num)}" :onClose="()=>{diceBox.hide()}"/>
+        <DiceFoldout :onRoll="(num)=>{roll(num)}" :onClose="()=>{diceBox.hide()}"/>
         <div class="flex gap-6 absolute top-4 right-4" >
             <div class="flex flex-col">           
                 <div 
