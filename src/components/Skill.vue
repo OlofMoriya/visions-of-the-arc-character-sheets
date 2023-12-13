@@ -1,7 +1,7 @@
 <script lang="ts">
     import { computed } from 'vue';
     export default {
-        props:['title', 'level', 'computedLevel', 'setLevel', 'extra', 'onRoll' ],
+        props:['title', 'level', 'computedLevel', 'setLevel', 'extra', 'onRoll', 'editing'],
         setup(props:{
                 title: string,
                 level: number,
@@ -9,6 +9,7 @@
                 setLevel?: Function,
                 extra?: boolean,
                 onRoll?: Function
+                editing?: boolean
             }) {
 
             const first = computed(()=> props.level > 0);
@@ -18,7 +19,8 @@
             const fifth = computed(()=> props.extra ?? false);
 
             const setLevel = (level:number) => {
-                if (!props.computedLevel) {
+
+                if (!props.computedLevel && props.editing !== false) {
                     props.setLevel?.(level);
                 }
             };

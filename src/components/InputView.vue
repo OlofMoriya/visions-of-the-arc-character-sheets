@@ -16,7 +16,7 @@
 <template>
     <input 
         v-if="editing && !textArea" 
-        class="w-full h-8 dark:bg-neutral-700 p-2 text-center" 
+        class="mb-1 w-full h-8 dark:bg-neutral-700 p-2 text-center" 
         :value="value" 
         :placeholder="placeholder" 
         @input="e => onChange(e.target.value)"
@@ -24,7 +24,7 @@
     <textarea 
         v-if="editing && textArea" 
         :rows="rows ?? 3" 
-        class="w-full dark:bg-neutral-700 p-2 text-center " 
+        class="mb-1 w-full dark:bg-neutral-700 p-2 text-center " 
         :value="value" 
         :placeholder="placeholder" 
         @input="e => onChange(e.target.value)"
