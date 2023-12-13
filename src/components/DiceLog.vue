@@ -17,8 +17,9 @@
                     log.push(doc.data());
                 });
                 rollsLog.value = log;
-                if (log.length > 0)
+                if (log.length > 0){
                     props.onUpdate?.()
+                }
 
             });
 
@@ -34,7 +35,7 @@
 </script>
 
 <template>
-    <div v-if="showLog" class="w-full dark:bg-neutral-800 dark:text-neutral-200 bg-neutral-200/90 text-neutral-600 rounded-b-lg p-4 flex flex-col">
+    <div v-if="showLog !== false" class="w-full dark:bg-neutral-800 dark:text-neutral-200 bg-neutral-200/90 text-neutral-600 rounded-b-lg p-4 flex flex-col">
         <div v-for="(roll,i) in rollsLog" :key="i">
             <div class="p-2 border-b border-neutral-800">
                 <div class="flex gap-2">

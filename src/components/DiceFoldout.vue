@@ -13,19 +13,28 @@
 
             let timeout: string|number|NodeJS.Timeout;
             let showLog = ref(false);
+            let showOne = ref(false);
 
             const renderIconName = (num: number) => {
                 const name = "bi-dice-"+num+"-fill";
                 return name;
             }
 
-            return {renderIconName, showLog, DiceLog};
+            function displayWithTimeout(){
+                console.log("hi in display");
+                showOne.value = true;
+                timeout = setTimeout(()=>{
+                    showOne.value = false;
+                }, 15000)
+            }
+
+            return {renderIconName, showOne, showLog, DiceLog, displayWithTimeout};
         }
     }
 </script>
 
 <template>
-    <div class="rounded-b-lg absolute left-4 top-0 w-200 dark:bg-neutral-800 dark:text-neutral-200 bg-neutral-200/90 text-neutral-600 ">
+    <div class="rounded-b-lg absolute left-4 top-0 w-200 dark:bg-neutral-800 dark:text-neutral-200 bg-neutral-200/90 text-neutral-600" :class="{['p-2']:showLog||showOne}">
         <div v-if="showLog && onRoll" class="flex py-2 px-2 justify-between">
             <v-icon 
                 class="w-6 h-6 cursor-pointer" 
@@ -34,7 +43,7 @@
                 :name="renderIconName(i)" 
                 :onClick="()=>{onRoll?.(i)}"/>
         </div>
-        <DiceLog :limit="5" :onChage="()=>{showLog=true}" :showLog="showLog"/>
+        <DiceLog :limit="showLog ? 6 : 1" :onUpdate="()=>{displayWithTimeout()}" :showLog="showOne || showLog"/>
         <div v-if="showLog && onClose" class="px-4 py-2 text-center cursor-pointer" :onClick="()=>{showLog = false; onClose?.() }">Hide</div>
     </div>
     <div v-if="!showLog" class="absolute left-4 top-4 ">
