@@ -5,7 +5,7 @@
 
     import DiceBox from "@3d-dice/dice-box";
     import GenericLevel from '../components/GenericLevel.vue';
-    import DiceLog from '../components/DiceLog.vue';
+    import DiceFoldout from '../components/DiceFoldout.vue';
 
     const characters = ref([]);
     
@@ -53,7 +53,7 @@ async function roll(num: number, message?: string) {
 </script>
 <template>
   <div class="p-8">
-      <DiceLog :onRoll="(num)=>{roll(num)}" :onClose="()=>{diceBox.hide()}"/>
+      <DiceFoldout :onRoll="(num)=>{roll(num)}" :onClose="()=>{diceBox.hide()}"/>
       <div class="gap-4 flex flex-col-reverse items-center mt-8">
           <div class="mb-8" v-for="character in characters" :key="character.id">
               <div class="flex gap-4">
