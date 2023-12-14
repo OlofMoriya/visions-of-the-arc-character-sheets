@@ -43,7 +43,7 @@
                 :name="renderIconName(i)" 
                 :onClick="()=>{onRoll?.(i)}"/>
         </div>
-        <DiceLog :limit="6" :onUpdate="()=>{displayWithTimeout()}" :showLog="showOne || showLog"/>
+        <DiceLog :limit="1" :onUpdate="()=>{displayWithTimeout()}" :showLog="showOne || showLog"/>
         <div v-if="showLog && onClose" class="px-4 py-2 text-center cursor-pointer" :onClick="()=>{showLog = false; onClose?.() }">Hide</div>
     </div>
     <div v-if="!showLog" class="absolute left-4 top-4 ">
