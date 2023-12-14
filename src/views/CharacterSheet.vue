@@ -304,7 +304,7 @@ function renderLoadedDiceName(pos: boolean) {
                                 </div>
 
                                 <div class="mx-2 flex flex-col dark:border-neutral-600 border border-neutral-600 dark:bg-neutral-100 bg-neutral-800 dark:text-neutral-800 text-neutral-200">
-                                    <Skill :editing="editing" title="Physical" :onRoll="(num) => {roll(num, 'Rolled physical')}" :level="physical" :computedLevel="true" extra/>
+                                    <Skill :editing="editing" title="Physical" :onRoll="(num) => {roll(num, 'Rolled physical')}" :level="physical" :computedLevel="true" :extra="true"/>
                                 </div>
                                 <div class="group relative mx-2 flex flex-col dark:border-neutral-600 border border-neutral-600 ">
                                     <div class="hidden group-hover:block z-10 absolute top-10 left-0 p-1 rounded-s bg-neutral-700">Slow things down, stabilize, hold something back</div>
