@@ -11,8 +11,9 @@
             showLog?: boolean
         }){
             let rollsLog = ref([]);
-            const unsub = onSnapshot(query(collection(db, 'rolls'), where("date", ">", Timestamp.now()), orderBy("date", "desc"), limit(props.limit ?? 8)), (snapshot) => {
+            const unsub = onSnapshot(query(collection(db, 'rolls'), where("date", ">", Timestamp.now()), orderBy("date", "desc"), limit(8)), (snapshot) => {
                 const log = [];
+                let i = 0;
                 snapshot.forEach(doc => {
                     log.push(doc.data());
                 });

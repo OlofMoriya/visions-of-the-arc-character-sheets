@@ -178,8 +178,9 @@ function renderLoadedDiceName(pos: boolean) {
 </script>
 
 <template>
-    <main class="mr-6 dark:bg-neutral-900 dark:text-neutral-200 rounded-sm bg-neutral-50 pt-20 h-full relative">
+    <main class="flex justify-center mr-6 dark:bg-neutral-900 dark:text-neutral-200 rounded-sm bg-neutral-50 h-full">
         <DiceFoldout :onRoll="(num)=>{roll(num)}" :onClose="()=>{diceBox.hide()}"/>
+        <div class="relative h-full pt-20">
         <div class="flex gap-6 absolute top-4 right-4" >
             <div class="flex flex-col">           
                 <div 
@@ -411,5 +412,6 @@ function renderLoadedDiceName(pos: boolean) {
         <div v-if="editing">
             <div class="p-2 cursor-no-drop" :onClick="()=>{user.id = null}">Reset id</div>   
         </div>
+                        </div>
     </main>
 </template>
