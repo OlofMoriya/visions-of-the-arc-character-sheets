@@ -179,8 +179,8 @@ function renderLoadedDiceName(pos: boolean) {
 
 <template>
     <main class="flex justify-center mr-6 dark:bg-neutral-900 dark:text-neutral-200 rounded-sm bg-neutral-50 h-full">
-        <DiceFoldout :onRoll="(num)=>{roll(num)}" :onClose="()=>{diceBox.hide()}"/>
-        <div class="relative h-full pt-20">
+        <div class="w-full relative h-full pt-20">
+            <DiceFoldout :onRoll="(num)=>{roll(num)}" :onClose="()=>{diceBox.hide()}"/>
         <div class="flex gap-6 absolute top-4 right-4" >
             <div class="flex flex-col">           
                 <div 
