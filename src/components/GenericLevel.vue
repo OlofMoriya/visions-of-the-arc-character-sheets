@@ -1,6 +1,6 @@
 <script lang="ts">
     export default {
-        props:['maxLevel', 'level', 'setLevel', 'title', 'breakAt', 'longTitle', ],
+        props:['maxLevel', 'level', 'setLevel', 'title', 'breakAt', 'longTitle', 'wide'],
         setup(props:{
             maxLevel: number,
             level: number,
@@ -8,6 +8,7 @@
             title?: string,
             breakAt?: number,
             longTitle?: boolean,
+            wide?: boolean
         }){
             const items = Array.from({ length: props.maxLevel}, (_, index) => index);
             const setLevel = (level:number) => {
@@ -20,7 +21,8 @@
 
 <template>
     <div class="grid-cols-1 grid-cols-2 grid-cols-4 grid-cols-6 grid-cols-10 grid-cols-12"/>
-    <div class="flex justify-between gap-4 py-1 align-center items-center">
+    <div class="flex justify-between gap-4 py-1 align-center items-center"
+         :class="{['w-full']:wide}">
         <div :class="{['w-20'] : !longTitle}">{{title}}</div>
         <div class="grid gap-1" :class="{[`grid-cols-${breakAt ?? maxLevel}`]: true}">
             <div v-for="(i) in items" 

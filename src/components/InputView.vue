@@ -1,6 +1,6 @@
 <script lang="ts">
     export default {
-        props:['value', 'onChange', 'placeholder', 'editing', 'textArea', 'noBorder', 'rows', ],
+        props:['value', 'onChange', 'placeholder', 'editing', 'textArea', 'noBorder', 'rows', 'leftAlign'],
         setup(props: {
                 value: string,
                 onChange: Function,
@@ -9,6 +9,7 @@
                 textArea?: boolean,
                 noBorder?: boolean,
                 rows?: number
+                leftAlign?: boolean
             }){ }
     }
 </script>
@@ -16,7 +17,8 @@
 <template>
     <input 
         v-if="editing && !textArea" 
-        class="mb-1 w-full h-8 dark:bg-neutral-700 p-2 text-center" 
+        class="mb-1 w-full h-8 dark:bg-neutral-700 p-2" 
+        :class="{['text-center']: !leftAlign, ['text-left']: leftAlign}"
         :value="value" 
         :placeholder="placeholder" 
         @input="e => onChange(e.target.value)"
@@ -24,7 +26,8 @@
     <textarea 
         v-if="editing && textArea" 
         :rows="rows ?? 3" 
-        class="mb-1 w-full dark:bg-neutral-700 p-2 text-center " 
+        class="mb-1 w-full dark:bg-neutral-700 p-2" 
+        :class="{['text-center']: !leftAlign, ['text-left']: leftAlign}"
         :value="value" 
         :placeholder="placeholder" 
         @input="e => onChange(e.target.value)"

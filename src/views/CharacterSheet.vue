@@ -256,26 +256,26 @@ function renderLoadedDiceName(pos: boolean) {
                         <div class="flex flex-col">
                             <div class="my-4 mx-2 p-2 flex flex-col">
                                 <div class="flex w-full justify-center">
-                                    <GenericLevel title="Stress" :level="user.stress" :maxLevel="10" :setLevel="(l) => user.stress = l"/>
+                                    <GenericLevel :wide="true" title="Stress" :level="user.stress" :maxLevel="10" :setLevel="(l) => user.stress = l"/>
                                 </div>
                                 <div class="flex flex-col items-center">
-                                <div class="w-full my-4 mx-2 flex flex-col">
-                                    <GenericLevel :level="user.loadLevel" :setLevel="(l) => user.loadLevel = l" title="Loadout" :maxLevel="4" :breakAt="4"/>
-                                    <div class="gap-1 grid col-span-2">
-                                        <input v-for="(i, index) in load" :key="index" class="w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="getLoadIndex(index)" placeholder="" @input="e => setLoadIndex(index, e.target.value)"/> 
-                                    </div>
+                                    <div class="my-4 mx-2 flex flex-col w-full">
+                                        <GenericLevel :level="user.loadLevel" :setLevel="(l) => user.loadLevel = l" title="Loadout" :maxLevel="4" :breakAt="4"/>
+                                        <div class="gap-1 grid col-span-2">
+                                            <input v-for="(i, index) in load" :key="index" class="w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="getLoadIndex(index)" placeholder="" @input="e => setLoadIndex(index, e.target.value)"/> 
+                                        </div>
 
-                                    <!-- <Items :maxLoad="numberOfItems()" :setItems="(items) => user.items = items" :items="user.items"/> -->
-                                </div>
-                                <div class="my-4 mx-2 flex flex-col ">
-                                    <GenericLevel title="Special armour" :maxLevel="1" :longTitle="true" :level="user.specialArmourToggle" :setLevel="(l) => user.specialArmourToggle = l"/>
-                                    <InputView placeholder="" :onChange="t => user.specialArmour = t" :editing="editing" :value="user.specialArmour"/> 
-                                    <InputView class="h-8 w-full dark:bg-neutral-700 p-2 text-center"  :value="user.stash" placeholder="Stash" :onChange="t => user.stash = t" :editing="editing"/> 
-                                    <InputView textArea="true" placeholder="Looks" :value="user.looks" :onChange="t => user.looks = t" :editing="editing"/> 
-                                    <InputView placeholder="Vice" :value="user.vice" :onChange="t => user.vice = t" :editing="editing"/> 
-                                    <InputView placeholder="Special abilities" :onChange="t => user.specialSkills = t" :editing="editing" textArea="true" :value="user.specialSkills"/> 
-                                    <InputView placeholder="Special Items" :onChange="t => user.specialItems = t" :editing="editing" textArea="true" :value="user.specialItems"/> 
-                                </div>
+                                        <!-- <Items :maxLoad="numberOfItems()" :setItems="(items) => user.items = items" :items="user.items"/> -->
+                                    </div>
+                                    <div class="my-4 mx-2 flex flex-col w-full">
+                                        <GenericLevel title="Special armour" :maxLevel="1" :longTitle="true" :level="user.specialArmourToggle" :setLevel="(l) => user.specialArmourToggle = l"/>
+                                        <InputView placeholder="" :onChange="t => user.specialArmour = t" :editing="editing" :value="user.specialArmour"/> 
+                                        <InputView class="h-8 w-full dark:bg-neutral-700 p-2 text-center"  :value="user.stash" placeholder="Stash" :onChange="t => user.stash = t" :editing="editing"/> 
+                                        <InputView textArea="true" placeholder="Looks" :value="user.looks" :onChange="t => user.looks = t" :editing="editing"/> 
+                                        <InputView placeholder="Vice" :value="user.vice" :onChange="t => user.vice = t" :editing="editing"/> 
+                                        <InputView placeholder="Special abilities" :onChange="t => user.specialSkills = t" :editing="editing" textArea="true" :value="user.specialSkills"/> 
+                                        <InputView placeholder="Special Items" :onChange="t => user.specialItems = t" :editing="editing" textArea="true" :value="user.specialItems"/> 
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -343,7 +343,7 @@ function renderLoadedDiceName(pos: boolean) {
                             </div>
                                 <div class="my-4 mx-2 flex flex-col items-center">
                                     <div class="font-bold border-b-1 border-b mb-2 text-center w-4/5 border-neutral-300">Notes</div>
-                                    <InputView :rows=6 placeholder="Notes" :editing="true" :textArea="true" :onChange="t => user.notes = t" :value="user.notes"/>
+                                    <InputView :rows=6 placeholder="Notes" :leftAlign="true" :editing="true" :textArea="true" :onChange="t => user.notes = t" :value="user.notes"/>
                                 </div>
                             </div>
 
@@ -367,7 +367,7 @@ function renderLoadedDiceName(pos: boolean) {
                                 <div class="my-2 mb-6 mx-2 flex flex-col items-center">
                                     <div class="font-bold border-b-1 border-b text-center w-4/5 border-neutral-300">Harm</div>
                                     
-                                    <div class="flex flex justify-center w-full mt-2 items-center">
+                                    <div class="flex justify-center w-4/5 mt-2 items-center">
                                         <input class=" w-full h-8 dark:bg-neutral-700 p-2 text-center"  :value="user.trauma" placeholder="Trauma" @input="e => user.trauma = e.target.value"/> 
                                     <div class="items-center justify-center flex flex-col">
                                         <div>Heal</div>
@@ -375,7 +375,7 @@ function renderLoadedDiceName(pos: boolean) {
                                     </div>
                                     </div>
 
-                                    <div class="mt-2 gap-1 grid grid-cols-2">
+                                    <div class="mt-2 ap-1 grid grid-cols-2">
                                         <div class="col-span-2">
                                             <input class="h-8 w-full dark:bg-neutral-700 p-2 text-center"  :value="user.harm3" placeholder="3" @input="e => user.harm3 = e.target.value"/> 
                                         </div>
