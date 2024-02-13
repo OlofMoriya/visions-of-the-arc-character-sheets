@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import CharacterSheet from '../views/CharacterSheet.vue'
+import CrewSheet from '../views/CrewSheet.vue'
 import DmScreen from '../views/DmScreen.vue'
 
 const router = createRouter({
@@ -9,6 +10,11 @@ const router = createRouter({
       path: '/',
       name: 'sheet',
       component: CharacterSheet
+    },
+    {
+      path: '/crew',
+      name: 'crew',
+      component: CrewSheet
     },
     {
       path: '/dm',
