@@ -38,6 +38,7 @@
           group.coin = parsedGroup.coin;
           group.vaultContents = parsedGroup.vaultContents;
           group.specialCrewAbilities = parsedGroup.specialCrewAbilities;
+          group.notes = parsedGroup.notes;
     }
 
     const savedGroup = localStorage.getItem('group');
@@ -68,7 +69,8 @@
           familyType: ref(parsedGroup.familyType ?? null),
           coin: ref(parsedGroup.coin ?? null),
           vaultContents: ref(parsedGroup.vaultContents ?? null),
-          specialCrewAbilities: ref(parsedGroup.specialCrewAbilities ?? null)
+          specialCrewAbilities: ref(parsedGroup.specialCrewAbilities ?? null),
+          notes: ref(parsedGroup.notes ?? null)
         });
     setGroup(parsedGroup);
 
@@ -98,7 +100,7 @@
       }
 
     watchEffect(async () => {
-            console.log('saving', group.name, group.reputation, group.inItFor, group.motto, group.members, group.lairCoverStory, group.lairLocation, group.coverStoryStrength, group.vaultSize, group.lairSecurity, group.numberOfBeds, group.workbenches, group.heat, group.rep, group.wantedLevel, group.tier, group.cohortDamage1,group.cohortDamage2, group.cohortDamage3, group.cohortDamage4, group.familyType, group.coin, group.vaultContents, group.specialCrewAbilities, );
+            console.log('saving', group.name, group.reputation, group.inItFor, group.motto, group.members, group.lairCoverStory, group.lairLocation, group.coverStoryStrength, group.vaultSize, group.lairSecurity, group.numberOfBeds, group.workbenches, group.heat, group.rep, group.wantedLevel, group.tier, group.cohortDamage1,group.cohortDamage2, group.cohortDamage3, group.cohortDamage4, group.familyType, group.coin, group.vaultContents, group.specialCrewAbilities, group.notes );
 
             localStorage.setItem("group", JSON.stringify(group));
             if (group.name)
@@ -172,6 +174,9 @@
                 <InputView placeholder="Lair Security" :value="group.lairSecurity" :onChange="t => group.lairSecurity = t" :editing="editing"/>
                 <InputView placeholder="Number of Beds" :value="group.numberOfBeds" :onChange="t => group.numberOfBeds = t" :editing="editing"/>
                 <InputView placeholder="Workbenches" :value="group.workbenches" :onChange="t => group.workbenches = t" :editing="editing"/>
+            </div>
+            <div>
+                <InputView placeholder="Notes" :textArea="true" :rows=6 :editing="true" :value="group.notes" :onChange="l => group.notes = l" />
             </div>
 
             <div class="flex flex-col">
