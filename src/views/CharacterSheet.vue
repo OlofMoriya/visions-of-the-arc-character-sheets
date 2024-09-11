@@ -11,7 +11,7 @@ import '../style.css';
 import { ref, reactive, computed, watchEffect, onMounted } from 'vue';
 import DiceBox from "@3d-dice/dice-box";
 import { BiDice1Fill } from 'oh-vue-icons/icons';
-import { setDoc, addDoc, collection, doc, onSnapshot, query, Timestamp, where } from "firebase/firestore";
+import { setDoc, addDoc, getDoc, collection, doc, onSnapshot, query, Timestamp, where } from "firebase/firestore";
 import {db} from "../firebase"
 import DiceFoldout from '../components/DiceFoldout.vue';
 
@@ -115,6 +115,81 @@ const user = reactive({
         console.log("updated user", docRef);
     }, 500);
 }
+
+async function readCharacter(id:string) {
+    const docRef = doc(db, "characters", id);
+    const docSnap = await getDoc(docRef);
+
+    console.log(docSnap.data());
+    user.id=docSnap.data().id;
+    user.name=docSnap.data().name;
+    user.class=docSnap.data().class;
+    user.crew=docSnap.data().crew;
+    user.cover=docSnap.data().cover;
+    user.looks=docSnap.data().looks;
+    user.heritage=docSnap.data().heritage;
+    user.vice=docSnap.data().vice;
+    user.deduce=docSnap.data().deduce;
+    user.sense=docSnap.data().sense;
+    user.locate=docSnap.data().locate;
+    user.appraise=docSnap.data().appraise;
+    user.control=docSnap.data().control;
+    user.finess=docSnap.data().finess;
+    user.prowl=docSnap.data().prowl;
+    user.wreck=docSnap.data().wreck;
+    user.captivate=docSnap.data().captivate;
+    user.command=docSnap.data().command;
+    user.convince=docSnap.data().convince;
+    user.feign=docSnap.data().feign;
+    user.humility=docSnap.data().humility;
+    user.ambition=docSnap.data().ambition;
+    user.honesty=docSnap.data().honesty;
+    user.creativity=docSnap.data().creativity;
+    user.justice=docSnap.data().justice;
+    user.mercy=docSnap.data().mercy;
+    user.dignity=docSnap.data().dignity;
+    user.tolerance=docSnap.data().tolerance;
+    user.bravery=docSnap.data().bravery;
+    user.caution=docSnap.data().caution;
+    user.curiosity=docSnap.data().curiosity;
+    user.loyalty=docSnap.data().loyalty;
+    user.notes=docSnap.data().notes;
+    user.activeHumility=docSnap.data().activeHumility;
+    user.activeAmbition=docSnap.data().activeAmbition;
+    user.activeHonesty=docSnap.data().activeHonesty;
+    user.activeCreativity=docSnap.data().activeCreativity;
+    user.activeJustice=docSnap.data().activeJustice;
+    user.activeMercy=docSnap.data().activeMercy;
+    user.activeDignity=docSnap.data().activeDignity;
+    user.activeTolerance=docSnap.data().activeTolerance;
+    user.activeBravery=docSnap.data().activeBravery;
+    user.activeCaution=docSnap.data().activeCaution;
+    user.activeCuriosity=docSnap.data().activeCuriosity;
+    user.activeLoyalty=docSnap.data().activeLoyalty;
+    user.stress=docSnap.data().stress;
+    user.mentalXp=docSnap.data().mentalXp;
+    user.physicalXp=docSnap.data().physicalXp;
+    user.socialXp=docSnap.data().socialXp;
+    user.struggleOrExpress=docSnap.data().struggleOrExpress;
+    user.heal=docSnap.data().heal;
+    user.trauma=docSnap.data().trauma;
+    user.harm3=docSnap.data().harm3;
+    user.harm21=docSnap.data().harm21;
+    user.harm22=docSnap.data().harm22;
+    user.harm11=docSnap.data().harm11;
+    user.harm12=docSnap.data().harm12;
+    user.specialSkills=docSnap.data().specialSkills;
+    user.specialItems=docSnap.data().specialItems;
+    user.specialArmour=docSnap.data().specialArmour;
+    user.crafting=docSnap.data().crafting;
+    user.loadLevel=docSnap.data().loadLevel;
+    user.load=docSnap.data().load;
+    user.coin=docSnap.data().coin;
+    user.stash=docSnap.data().stash;
+    user.specialArmourToggle=docSnap.data().specialArmourToggle;
+}
+
+window.rc = readCharacter;
 
 const getLoadIndex = (index:  number) => user.load[index] || '';
 const setLoadIndex = (index:  number, load: string) => user.load[index] = load;
